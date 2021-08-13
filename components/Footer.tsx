@@ -1,7 +1,7 @@
 const Footer = () => {
 
     return(
-        <div className = "object-bottom">
+        <div>
             Copyright © 2021 by Benjamin Welzel
         </div>
     )
