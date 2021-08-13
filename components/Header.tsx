@@ -10,7 +10,7 @@ const Header = () => {
                 <a className = "m-4">Home</a>
             </Link>
             <Link href = "/Contributers">
-                <a className = "m-4" >Contributers</a>
+                <a className = "m-4">Contributers</a>
             </Link>
             </div>
             { !user &&
