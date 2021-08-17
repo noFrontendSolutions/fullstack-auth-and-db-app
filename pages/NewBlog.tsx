@@ -13,13 +13,15 @@ const NewBlog = () => {
             </div>
             }
             { context.user &&
-                <form className = "flex flex-col border p-2 w-1/2">
+                <div className = "flex flex-col w-1/2"> 
+                <form className = "flex flex-col border p-2">
                     <label htmlFor="input">Title</label>
                     <input className = "border p-2" placeholder="Start Here..."></input>
                     <label htmlFor="textarea" >Content</label>
                     <textarea placeholder="Start Here..." className = "border h-96 p-2" ></textarea>
-                    <button className = "my-2 p-2 border-2 rounded full bg-red-400 text-gray-700 font-bold">SUBMIT!</button>
                 </form>
+                <button className = "my-2 p-2 border-2 rounded full bg-red-400 text-gray-700 font-bold">SUBMIT!</button>
+                </div>
             }
         </div>
     )
