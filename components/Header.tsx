@@ -1,28 +1,41 @@
 import Link from "next/link"
-import {useState} from "react"
+import {useState, useContext} from "react"
+import { useRouter } from "next/dist/client/router"
+import { AuthContext } from "../authentication/AuthContext"
+    
 
 const Header = () => {
-    const[user, setUser] = useState(null)
+    const context = useContext(AuthContext)
+   
+    const {asPath} = useRouter()
+    
+
     return(
         <nav className = "flex flex-row justify-between p-6">
             <div>
             <Link href = "/">
-                <a className = "m-4">Home</a>
+                <a className = {asPath === "/" ? "m-4 border-gray-700 border-b-4" : "m-4"}>Home</a>
             </Link>
             <Link href = "/Contributers">
-                <a className = "m-4">Contributers</a>
+                <a className = {asPath === "/Contributers" ? "m-4 border-gray-700 border-b-4" : "m-4"}>Contributers</a>
             </Link>
             </div>
-            { !user &&
+            { !context.user &&
             <div>
-                <button onClick = {() => {setUser(!user)}}>
+                <button onClick = {context.login}>
                     Sign In / Login
                 </button>
             </div>
             }
-            { user &&
+            { context.user &&
             <div>
-                <button onClick = {() => {setUser(!user)}}>
+                <Link href = "/NewBlog">
+                <a className = {asPath === "/NewBlog" ? "m-4 border-gray-700 border-b-4" : "m-4"}>Create New Blog</a>
+                </Link>
+                <Link href = "/MyContributions">
+                <a className = {asPath === "/MyContributions" ? "m-4 border-gray-700 border-b-4" : "m-4"}>My Contributions</a>
+                </Link>
+                <button onClick = {context.logout}>
                     Logout
                 </button>
             </div>
