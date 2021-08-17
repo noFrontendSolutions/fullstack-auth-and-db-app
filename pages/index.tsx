@@ -1,3 +1,4 @@
+import ArticleLinkList from "./articles/index"
 import { ARTICLES } from "../dummy-data/dummy-data"
 
 export const getStaticProps = async () => {
@@ -10,14 +11,7 @@ export const getStaticProps = async () => {
 
 const Home = (props) => {
   return (
-    <div className = "h-full">
-      {props.articles.map(article => (
-       <div key = {article.id}>
-         <h2 className = "text-blue-500 font-bold text-2xl text-center>">{article.title}</h2>
-         <p>{article.content}</p>
-      </div>
-    ))}
-    </div>
+    <ArticleLinkList articles= {props.articles}/>
   )
 }
 
