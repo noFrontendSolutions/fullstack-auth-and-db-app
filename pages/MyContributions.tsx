@@ -1,19 +1,30 @@
 import { AuthContext } from "../authentication/AuthContext"
-import { useContext, useEffect } from "react"
-import { ARTICLES } from "../dummy-data/dummy-data"
+import { useContext} from "react"
+
+import { MongoClient } from "mongodb"
 
 export const getStaticProps = async () => {
-    //fetch from Mongo Atlas const articles = await fetch(...)
-    let allArticles = ARTICLES
+    const client = await MongoClient.connect(process.env.DB_HOST)
+    const db = client.db()
+    const articleCollection = db.collection("articles")
+    const allArticles = await articleCollection.find().toArray()
+    client.close()
+    
     return {
-      props: 
-        {allArticles}
-    }
+        props: 
+          {allArticles: allArticles.map(article => ({
+            user: article.user,
+            title: article.title,
+            description: article.description,
+            content: article.content,
+            id: article._id.toString()
+          }))}
+      }
   }
 
 const MyContributions = (props) => {
     const context = useContext(AuthContext)
-    let myArticles = props.allArticles.filter(article => article.email === context.user)
+    let myArticles = props.allArticles.filter(article => article.user === context.user)
 
     //useEffect(() => {
     //  myArticles = props.allArticles.filter(article => article.email === context.user)

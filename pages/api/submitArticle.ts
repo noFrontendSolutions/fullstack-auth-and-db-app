@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { MongoClient } from "mongodb"
 
-const newArticleHandler = async (req, res) => {
+const submitArticle = async (req, res) => {
   if(req.method === "POST") {
     const data = req.body
     const client = await MongoClient.connect(process.env.DB_HOST)
@@ -13,4 +13,4 @@ const newArticleHandler = async (req, res) => {
   }
 }
 
-export default newArticleHandler
+export default submitArticle

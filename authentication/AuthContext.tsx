@@ -1,6 +1,5 @@
 import {createContext, useState, useEffect} from "react"
 import { useRouter } from "next/dist/client/router"
-import { USERS } from "../dummy-data/dummy-data";
 
 const AuthContext = createContext({
     user: null,

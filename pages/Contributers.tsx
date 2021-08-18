@@ -1,10 +1,14 @@
-import { ARTICLES } from "../dummy-data/dummy-data"
+import { MongoClient } from "mongodb"
 
 export const getStaticProps = async () => {
-    //fetch from Mongo Atlas const articles = await fetch(...)
+  const client = await MongoClient.connect(process.env.DB_HOST)
+  const db = client.db()
+  const articleCollection = db.collection("articles")
+  const allArticles = await articleCollection.find().toArray()
+  client.close()
     let authors: string[] = []
-    ARTICLES.forEach((article) => {
-        if(!authors.includes(article.author)) authors.push(article.author) 
+    allArticles.forEach((article) => {
+        if(!authors.includes(article.user)) authors.push(article.user) 
     })
     return {
       props: 

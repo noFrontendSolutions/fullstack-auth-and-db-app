@@ -1,5 +1,3 @@
-//import ArticleLinkList from "./articles/index"
-import { ARTICLES } from "../dummy-data/dummy-data"
 import { MongoClient } from "mongodb"
 import Link from "next/link"
 

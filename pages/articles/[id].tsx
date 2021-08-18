@@ -1,4 +1,3 @@
-import { ARTICLES } from "../../dummy-data/dummy-data"
 import { MongoClient } from "mongodb"
 import { ObjectID } from "bson"
 
