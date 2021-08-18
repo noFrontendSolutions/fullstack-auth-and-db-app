@@ -7,7 +7,6 @@ const Layout = ({children}) => {
     <div className = "h-screen flex flex-col">
     <Header />
         {children}
-    <Footer />
     </div>
 )}
 

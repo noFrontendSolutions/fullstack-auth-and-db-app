@@ -5,10 +5,12 @@ import { useRouter } from "next/dist/client/router"
 const NewArticle = () => {
     const context = useContext(AuthContext)
     const [title, setTitle] = useState(null)
+    const [description, setDescription] = useState(null)
     const [content, setContent] = useState (null) 
+
     const router = useRouter()
     const user = context.user
-    const data = {user, title, content}
+    const data = {user, title, description, content}
     const submitHandler = async () => {
         
         //console.log(data)
@@ -35,7 +37,9 @@ const NewArticle = () => {
                 <form className = "flex flex-col border p-2">
                     <label htmlFor="input">Title</label>
                     <input className = "border p-2" placeholder="Start Here..." onChange = {e => setTitle(e.target.value)}></input>
-                    <label htmlFor="textarea" >Content</label>
+                    <label htmlFor="textarea" >Description</label>
+                    <textarea placeholder="Start Here..." className = "border h-48 p-2" onChange = {e => setDescription(e.target.value)} ></textarea>
+                    <label htmlFor="textarea" >Main Content</label>
                     <textarea placeholder="Start Here..." className = "border h-96 p-2" onChange = {e => setContent(e.target.value)} ></textarea>
                 </form>
                 <button className = "my-2 p-2 border-2 rounded full bg-red-400 text-gray-700 font-bold" onClick = {submitHandler}>SUBMIT!</button>
