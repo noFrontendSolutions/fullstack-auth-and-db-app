@@ -29,7 +29,7 @@ const Header = () => {
             }
             { context.user &&
             <div className = "flex items-center">
-                <Link href = "/NewBlog">
+                <Link href = "/NewArticle">
                 <a className = {asPath === "/NewBlog" ? "m-4 border-gray-700 border-b-4" : "m-4"}>Create New Blog</a>
                 </Link>
                 <Link href = "/MyContributions">

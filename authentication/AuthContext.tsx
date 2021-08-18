@@ -1,4 +1,5 @@
 import {createContext, useState, useEffect} from "react"
+import { useRouter } from "next/dist/client/router"
 import { USERS } from "../dummy-data/dummy-data";
 
 const AuthContext = createContext({
@@ -9,6 +10,7 @@ const AuthContext = createContext({
 })
 
 const AuthContextProvider = ({children}) => {
+    const router = useRouter()
     
     const [user, setUser] = useState(null)
 
@@ -24,6 +26,7 @@ const AuthContextProvider = ({children}) => {
 
     const logout = () => {
         setUser(null)
+        router.push("./")
     }
 
     const authenticated = null
