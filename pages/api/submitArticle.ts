@@ -4,7 +4,8 @@ import { MongoClient } from "mongodb"
 const submitArticle = async (req: any, res: any) => {
   if(req.method === "POST") {
     const data = req.body
-    const client = await MongoClient.connect(process.env.DB_HOST!)
+    const MONGO_URI: any = process.env.DB_HOST
+    const client = await MongoClient.connect(MONGO_URI)
     const db = client.db()
     const articleCollection = db.collection("articles")
     await articleCollection.insertOne(data)

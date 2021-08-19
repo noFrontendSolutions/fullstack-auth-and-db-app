@@ -12,7 +12,8 @@ interface Article {
 }
 
 export const getStaticProps = async () => {
-    const client = await MongoClient.connect(process.env.DB_HOST!)
+    const MONGO_URI: any = process.env.DB_HOST
+    const client = await MongoClient.connect(MONGO_URI)
     const db = client.db()
     const articleCollection = db.collection("articles")
     const allArticles = await articleCollection.find().toArray()

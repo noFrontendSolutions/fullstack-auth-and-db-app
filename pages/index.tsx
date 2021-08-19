@@ -2,7 +2,8 @@ import { MongoClient } from "mongodb"
 import Link from "next/link"
 
 export const getStaticProps = async () => {
-  const client = await MongoClient.connect(process.env.DB_HOST!)
+  const MONGO_URI: any = process.env.DB_HOST
+  const client = await MongoClient.connect(MONGO_URI)
   const db = client.db()
   const articleCollection = db.collection("articles")
   const articles = await articleCollection.find().toArray()

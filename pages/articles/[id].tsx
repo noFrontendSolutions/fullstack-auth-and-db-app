@@ -2,7 +2,8 @@ import { MongoClient } from "mongodb"
 import { ObjectID } from "bson"
 
 export const getStaticPaths = async () => {
-  const client = await MongoClient.connect(process.env.DB_HOST!)
+  const MONGO_URI: any = process.env.DB_HOST
+  const client = await MongoClient.connect(MONGO_URI)
   const db = client.db()
   const articleCollection = db.collection("articles")
   const articles = await articleCollection.find().toArray()
@@ -20,7 +21,8 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context: any) => {
     const id = context.params.id
-    const client = await MongoClient.connect(process.env.DB_HOST!)
+    const MONGO_URI: any = process.env.DB_HOST
+    const client = await MongoClient.connect(MONGO_URI)
     const db = client.db()
     const articleCollection = db.collection("articles")
     const objId = new ObjectID(id)
