@@ -1,12 +1,10 @@
 import { MongoClient } from "mongodb"
+import connectToDB from "../database/db-related"
 
 export const getStaticProps = async () => {
-  const MONGO_URI: any = process.env.DB_HOST
-  const client = await MongoClient.connect(MONGO_URI)
-  const db = client.db()
-  const articleCollection = db.collection("articles")
-  const allArticles = await articleCollection.find().toArray()
-  client.close()
+  
+  const allArticles = await connectToDB()
+  
     let authors: string[] = []
     allArticles.forEach((article) => {
         if(!authors.includes(article.user)) authors.push(article.user) 

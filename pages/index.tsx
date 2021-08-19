@@ -1,17 +1,13 @@
-import { MongoClient } from "mongodb"
+
 import Link from "next/link"
+import connectToDB from "../database/db-related"
 
 export const getStaticProps = async () => {
-  const MONGO_URI: any = process.env.DB_HOST
-  const client = await MongoClient.connect(MONGO_URI)
-  const db = client.db()
-  const articleCollection = db.collection("articles")
-  const articles = await articleCollection.find().toArray()
-  client.close()
+  const allArticles = await connectToDB()
 
   return {
     props: 
-      {articles: articles.map(article => ({
+      {articles: allArticles.map(article => ({
         user: article.user,
         title: article.title,
         description: article.description,

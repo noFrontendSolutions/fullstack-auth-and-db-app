@@ -1,7 +1,6 @@
 import { AuthContext } from "../authentication/AuthContext"
 import { useContext} from "react"
-
-import { MongoClient } from "mongodb"
+import connectToDB from "../database/db-related"
 
 interface Article {
     user: string
@@ -12,12 +11,7 @@ interface Article {
 }
 
 export const getStaticProps = async () => {
-    const MONGO_URI: any = process.env.DB_HOST
-    const client = await MongoClient.connect(MONGO_URI)
-    const db = client.db()
-    const articleCollection = db.collection("articles")
-    const allArticles = await articleCollection.find().toArray()
-    client.close()
+    const allArticles = await connectToDB()
     
     return {
         props: 

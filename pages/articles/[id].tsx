@@ -1,14 +1,9 @@
-import { MongoClient } from "mongodb"
-import { ObjectID } from "bson"
+import connectToDB from "../../database/db-related"
+import { findDBUser } from "../../database/db-related"
 
 export const getStaticPaths = async () => {
-  const MONGO_URI: any = process.env.DB_HOST
-  const client = await MongoClient.connect(MONGO_URI)
-  const db = client.db()
-  const articleCollection = db.collection("articles")
-  const articles = await articleCollection.find().toArray()
-  client.close()
-    const paths = articles.map(article => {
+    const allArticles = await connectToDB()
+    const paths = allArticles.map(article => {
         return {
             params: {id: article._id.toString()}
         }
@@ -21,17 +16,11 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context: any) => {
     const id = context.params.id
-    const MONGO_URI: any = process.env.DB_HOST
-    const client = await MongoClient.connect(MONGO_URI)
-    const db = client.db()
-    const articleCollection = db.collection("articles")
-    const objId = new ObjectID(id)
-    const data = await articleCollection.find({"_id": objId}).toArray()
-    client.close()
-    console.log(data)
+    const user = await findDBUser(id)
+    //console.log(data)
     return {
         props: 
-          {articles: data.map(article => ({
+          {articles: user.map(article => ({
             user: article.user,
             title: article.title,
             description: article.description,
