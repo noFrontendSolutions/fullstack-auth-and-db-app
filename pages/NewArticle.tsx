@@ -4,9 +4,9 @@ import { useRouter } from "next/dist/client/router"
 
 const NewArticle = () => {
     const context = useContext(AuthContext)
-    const [title, setTitle] = useState(null)
-    const [description, setDescription] = useState(null)
-    const [content, setContent] = useState (null) 
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+    const [content, setContent] = useState ("") 
 
     const router = useRouter()
     const user = context.user

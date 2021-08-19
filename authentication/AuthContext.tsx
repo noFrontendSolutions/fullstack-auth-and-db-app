@@ -2,16 +2,16 @@ import {createContext, useState, useEffect} from "react"
 import { useRouter } from "next/dist/client/router"
 
 const AuthContext = createContext({
-    user: null,
-    login: () => {},
-    logout: () => {},
+    user: "",
+    login: ():void => {},
+    logout: ():void  => {},
     authenticated: false
 })
 
-const AuthContextProvider = ({children}) => {
+const AuthContextProvider = ({children}: any) => {
     const router = useRouter()
     
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState("")
 
     useEffect(() => {
         //if you use Netlify uncomment line below
@@ -24,11 +24,11 @@ const AuthContextProvider = ({children}) => {
     }
 
     const logout = () => {
-        setUser(null)
+        setUser("")
         router.push("./")
     }
 
-    const authenticated = null
+    const authenticated = false
 
     const context = {user, login, logout, authenticated}
 

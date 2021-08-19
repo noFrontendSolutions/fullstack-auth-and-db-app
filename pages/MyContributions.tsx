@@ -3,8 +3,16 @@ import { useContext} from "react"
 
 import { MongoClient } from "mongodb"
 
+interface Article {
+    user: string
+    title: string
+    description: string
+    content: string
+    id: string
+}
+
 export const getStaticProps = async () => {
-    const client = await MongoClient.connect(process.env.DB_HOST)
+    const client = await MongoClient.connect(process.env.DB_HOST!)
     const db = client.db()
     const articleCollection = db.collection("articles")
     const allArticles = await articleCollection.find().toArray()
@@ -22,16 +30,16 @@ export const getStaticProps = async () => {
       }
   }
 
-const MyContributions = (props) => {
+const MyContributions = (props: any) => {
     const context = useContext(AuthContext)
-    let myArticles = props.allArticles.filter(article => article.user === context.user)
+    let myArticles: Article[] = props.allArticles.filter((article: { user: string }) => article.user === context.user)
 
     //useEffect(() => {
     //  myArticles = props.allArticles.filter(article => article.email === context.user)
     //}, [context.authenticated])
 
 
-    return(
+    return (
         <div className = "h-screen">
         { !context.user &&
         <div className = "flex items-center justify-center text-3xl">
