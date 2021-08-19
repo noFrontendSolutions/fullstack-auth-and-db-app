@@ -1,5 +1,5 @@
-import connectToDB from "../../database/db-related"
-import { findDBUser } from "../../database/db-related"
+import connectToDB from "../../Database/db-related"
+import { findDBUser } from "../../Database/db-related"
 
 export const getStaticPaths = async () => {
     const allArticles = await connectToDB()

@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { submitArticleToDB } from "../../database/db-related"
+import { submitArticleToDB } from "../../Database/db-related"
 
 const submitArticle = async (req: any, res: any) => {
   if(req.method === "POST") {

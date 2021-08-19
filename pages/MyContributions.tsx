@@ -1,6 +1,6 @@
 import { AuthContext } from "../authentication/AuthContext"
 import { useContext} from "react"
-import connectToDB from "../database/db-related"
+import connectToDB from "../Database/db-related"
 
 interface Article {
     user: string
