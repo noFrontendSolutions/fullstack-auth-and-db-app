@@ -1,6 +1,6 @@
 import { AuthContext } from "../authentication/AuthContext"
 import { useContext} from "react"
-import {connectToDB} from "../Database/db-related"
+import {connectToDB} from "../database/db-related"
 import Link from "next/link"
 
 export interface Article {
@@ -12,17 +12,20 @@ export interface Article {
 }
 
 export const getStaticProps = async () => {
-    const allArticles = await connectToDB()
-    
-    return {
-        props: 
-          {allArticles: allArticles.map(article => ({
+    const data = await connectToDB()
+    const allArticles = data.map(article => {
+        const id = JSON.parse(JSON.stringify(article._id))
+        return {
             user: article.user,
             title: article.title,
             description: article.description,
             content: article.content,
-            id: article._id.toString()
-          }))}
+            id: id
+        }
+    })
+    
+    return {
+        props: {allArticles}
       }
   }
 

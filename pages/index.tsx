@@ -1,6 +1,6 @@
 
 import Link from "next/link"
-import {connectToDB} from "../Database/db-related"
+import {connectToDB} from "../database/db-related"
 
 export const getStaticProps = async () => {
   const allArticles = await connectToDB()

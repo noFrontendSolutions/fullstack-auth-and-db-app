@@ -1,5 +1,5 @@
 //import connectToDB from "../../Database/db-related"
-import { findDBArticle, connectToDB } from "../../Database/db-related"
+import { findDBArticle, connectToDB } from "../../database/db-related"
 import { AuthContext } from "../../authentication/AuthContext"
 import { useContext, useState} from "react"
 import { useRouter } from "next/dist/client/router"
@@ -20,27 +20,20 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context: any) => {
     const id = context.params.id
-    const user = await findDBArticle(id)
-    //console.log(data)
+    const data = await findDBArticle(id)
+    const article = JSON.parse(JSON.stringify(data[0]))
     return {
-        props: 
-          {articles: user.map(article => ({
-            user: article.user,
-            title: article.title,
-            description: article.description,
-            content: article.content,
-            id: article._id.toString()
-          }))}
+        props: {article}
       }
     }
 
     const EditArticle = (props: any) => {
         //console.log(props.oldArticle)
         const context = useContext(AuthContext)
-        const id = props.articles[0].id
-        const [title, setTitle] = useState(props.articles[0].title)
-        const [description, setDescription] = useState(props.articles[0].description)
-        const [content, setContent] = useState(props.articles[0].description) 
+        const id = props.article.id
+        const [title, setTitle] = useState(props.article.title)
+        const [description, setDescription] = useState(props.article.description)
+        const [content, setContent] = useState(props.article.content) 
     
         const router = useRouter()
         const user = context.user
@@ -69,11 +62,11 @@ export const getStaticProps = async (context: any) => {
                     <div className = "flex flex-col w-1/2"> 
                     <form className = "flex flex-col border p-2">
                         <label htmlFor="input">Title</label>
-                        <input className = "border p-2" placeholder="Start Here..." onChange = {e => setTitle(e.target.value)} defaultValue = {props.articles[0].title}></input>
+                        <input className = "border p-2" placeholder="Start Here..." onChange = {e => setTitle(e.target.value)} defaultValue = {props.article.title}></input>
                         <label htmlFor="textarea" >Description</label>
-                        <textarea placeholder="Start Here..." className = "border h-48 p-2" onChange = {e => setDescription(e.target.value)} defaultValue = {props.articles[0].description}></textarea>
+                        <textarea placeholder="Start Here..." className = "border h-48 p-2" onChange = {e => setDescription(e.target.value)} defaultValue = {props.article.description}></textarea>
                         <label htmlFor="textarea" >Main Content</label>
-                        <textarea placeholder="Start Here..." className = "border h-96 p-2" onChange = {e => setContent(e.target.value)} defaultValue = {props.articles[0].content}></textarea>
+                        <textarea placeholder="Start Here..." className = "border h-96 p-2" onChange = {e => setContent(e.target.value)} defaultValue = {props.article.content}></textarea>
                     </form>
                     <button className = "my-2 p-2 border-2 rounded full bg-red-400 text-gray-700 font-bold" onClick = {resubmitHandler}>Edit!</button>
                     </div>
