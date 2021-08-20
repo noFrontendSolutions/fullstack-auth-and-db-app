@@ -47,7 +47,7 @@ export const getStaticProps = async (context: any) => {
         const data = {user, title, description, content, id}
 
         const resubmitHandler = async () => {
-            const response = await fetch('../api/resubmit-article', {
+            const response = await fetch('../api/request-handler', {
                 method: "PUT",
                 body: JSON.stringify(data),
                 headers: {"Content-Type": "application/json"}

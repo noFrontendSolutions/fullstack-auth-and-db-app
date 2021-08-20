@@ -16,7 +16,7 @@ const NewArticle = (props: any) => {
     const submitHandler = async () => {
         
         //console.log(data)
-        const response = await fetch('./api/submit-article', {
+        const response = await fetch('./api/request-handler', {
             method: "POST",
             body: JSON.stringify(data),
             headers: {"Content-Type": "application/json"}
