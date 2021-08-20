@@ -24,8 +24,8 @@ export const getStaticProps = async (context: any) => {
     const article = JSON.parse(JSON.stringify(data[0]))
     return {
         props: {article}
-      }
     }
+}
 
     const EditArticle = (props: any) => {
         //console.log(props.oldArticle)
@@ -38,7 +38,7 @@ export const getStaticProps = async (context: any) => {
         const router = useRouter()
         const user = context.user
         const data = {user, title, description, content, id}
-
+        console.log(props)
         const resubmitHandler = async () => {
             const response = await fetch('../api/request-handler', {
                 method: "PUT",
@@ -48,7 +48,7 @@ export const getStaticProps = async (context: any) => {
     
             const answer = await response.json()
             //console.log(answer)
-            router.push("../")
+            router.push("/")
         }
       
         return(
@@ -58,7 +58,7 @@ export const getStaticProps = async (context: any) => {
                     YOU'RE NOT AUTHORIZED TO VIEW THIS CONTENT. LOGIN BEFORE YOU START WRITING A NEW BLOG!            
                 </div>
                 }
-                { context.user &&
+                { context.user === props.article.user &&
                     <div className = "flex flex-col w-1/2"> 
                     <form className = "flex flex-col border p-2">
                         <label htmlFor="input">Title</label>

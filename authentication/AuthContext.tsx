@@ -25,7 +25,7 @@ const AuthContextProvider = ({children}: any) => {
 
     const logout = () => {
         setUser("")
-        router.push("./")
+        router.push("/")
     }
 
     const authenticated = false
