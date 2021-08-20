@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb"
 import { ObjectID } from "bson"
 
-const connectToDB = async () => {
+export const connectToDB = async () => {
     const MONGO_URI: any = process.env.DB_HOST
     const client = await MongoClient.connect(MONGO_URI)
     const db = client.db()
@@ -11,15 +11,15 @@ const connectToDB = async () => {
     return allArticles
 }
 
-export const findDBUser = async (id: any) => {
+export const findDBArticle = async (id: any) => {
     const MONGO_URI: any = process.env.DB_HOST
     const client = await MongoClient.connect(MONGO_URI)
     const db = client.db()
     const articleCollection = db.collection("articles")
     const objId = new ObjectID(id)
-    const user = await articleCollection.find({"_id": objId}).toArray()
+    const article = await articleCollection.find({"_id": objId}).toArray()
     client.close()
-    return user
+    return article
 }
 
 export const submitArticleToDB = async (article: any) => {
@@ -31,4 +31,14 @@ export const submitArticleToDB = async (article: any) => {
     client.close()
 }
 
-export default connectToDB
+export const updateDB = async (id: any, article: any) => {
+    const MONGO_URI: any = process.env.DB_HOST
+    const client = await MongoClient.connect(MONGO_URI)
+    const db = client.db()
+    const articleCollection = db.collection("articles")
+    const objId = new ObjectID(id)
+    await articleCollection.updateOne({"_id": objId}, {$set: {title: article.title, description: article.description, content: article.content}}, { upsert: true })
+}
+
+
+//db.COLLECTION_NAME.update(SELECTION_CRITERIA, UPDATED_DATA)

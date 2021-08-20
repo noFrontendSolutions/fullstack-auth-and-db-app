@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb"
-import connectToDB from "../Database/db-related"
+import {connectToDB} from "../Database/db-related"
 
 export const getStaticProps = async () => {
   

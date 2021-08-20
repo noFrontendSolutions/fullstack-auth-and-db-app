@@ -1,12 +1,14 @@
 import { AuthContext } from "../authentication/AuthContext"
 import { useContext, useState } from "react"
 import { useRouter } from "next/dist/client/router"
+//import Article from "./articles/[id]"
 
-const NewArticle = () => {
+const NewArticle = (props: any) => {
+    //console.log(props.oldArticle)
     const context = useContext(AuthContext)
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [content, setContent] = useState ("") 
+    const [content, setContent] = useState("") 
 
     const router = useRouter()
     const user = context.user
@@ -14,7 +16,7 @@ const NewArticle = () => {
     const submitHandler = async () => {
         
         //console.log(data)
-        const response = await fetch('./api/submitArticle', {
+        const response = await fetch('./api/submit-article', {
             method: "POST",
             body: JSON.stringify(data),
             headers: {"Content-Type": "application/json"}
@@ -36,11 +38,11 @@ const NewArticle = () => {
                 <div className = "flex flex-col w-1/2"> 
                 <form className = "flex flex-col border p-2">
                     <label htmlFor="input">Title</label>
-                    <input className = "border p-2" placeholder="Start Here..." onChange = {e => setTitle(e.target.value)}></input>
+                    <input className = "border p-2" placeholder="Start Here..." onChange = {e => setTitle(e.target.value)} ></input>
                     <label htmlFor="textarea" >Description</label>
                     <textarea placeholder="Start Here..." className = "border h-48 p-2" onChange = {e => setDescription(e.target.value)} ></textarea>
                     <label htmlFor="textarea" >Main Content</label>
-                    <textarea placeholder="Start Here..." className = "border h-96 p-2" onChange = {e => setContent(e.target.value)} ></textarea>
+                    <textarea placeholder="Start Here..." className = "border h-96 p-2" onChange = {e => setContent(e.target.value)}></textarea>
                 </form>
                 <button className = "my-2 p-2 border-2 rounded full bg-red-400 text-gray-700 font-bold" onClick = {submitHandler}>SUBMIT!</button>
                 </div>

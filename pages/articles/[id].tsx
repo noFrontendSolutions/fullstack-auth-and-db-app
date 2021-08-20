@@ -1,5 +1,5 @@
-import connectToDB from "../../Database/db-related"
-import { findDBUser } from "../../Database/db-related"
+//import connectToDB from "../../Database/db-related"
+import { findDBArticle, connectToDB } from "../../Database/db-related"
 
 export const getStaticPaths = async () => {
     const allArticles = await connectToDB()
@@ -16,8 +16,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context: any) => {
     const id = context.params.id
-    const user = await findDBUser(id)
-    //console.log(data)
+    const user = await findDBArticle(id)
     return {
         props: 
           {articles: user.map(article => ({
@@ -32,11 +31,11 @@ export const getStaticProps = async (context: any) => {
 
 
 const Article = (props: any) => {
-    console.log(props)
-
     return(
         <div className = "p-4 text-xl font-bold">
-            {props.articles[0].content}
+            <h1>{props.articles[0].title}</h1>
+            <p>{props.articles[0].description}</p>
+            <p>{props.articles[0].content}</p>
         </div>
     )
 
