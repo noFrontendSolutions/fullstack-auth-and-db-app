@@ -4,11 +4,11 @@ import {connectToDB} from "../database/db-related"
 import Link from "next/link"
 
 export interface Article {
-    user: string
+    user?: string
     title: string
     description: string
     content: string
-    id: string
+    _id?: string
 }
 
 export const getStaticProps = async () => {
@@ -20,7 +20,7 @@ export const getStaticProps = async () => {
             title: article.title,
             description: article.description,
             content: article.content,
-            id: id
+            _id: id
         }
     })
     
@@ -50,7 +50,7 @@ const MyContributions = (props: any) => {
         <div className = "h-full">
             {myArticles.map(article => (
                 <div>
-                <Link key = {article.id} href = {"/edit-article/" + article.id}>
+                <Link key = {article._id} href = {"/edit-article/" + article._id}>
                     <h2 className = "text-blue-500 font-bold text-2xl text-center>">{article.title}</h2>
                 </Link>
                 <p>{article.description}</p>

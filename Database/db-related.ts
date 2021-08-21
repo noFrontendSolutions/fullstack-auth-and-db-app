@@ -3,7 +3,8 @@ import { ObjectID } from "bson"
 
 export const connectToDB = async () => {
     const MONGO_URI: any = process.env.DB_HOST
-    const client = await MongoClient.connect(MONGO_URI)
+    const options = {useNewUrlParser: true, useUnifiedTopology: true}
+    const client = await MongoClient.connect(MONGO_URI, options)
     const db = client.db()
     const articleCollection = db.collection("articles")
     const allArticles = await articleCollection.find().toArray()
@@ -13,7 +14,8 @@ export const connectToDB = async () => {
 
 export const findDBArticle = async (id: any) => {
     const MONGO_URI: any = process.env.DB_HOST
-    const client = await MongoClient.connect(MONGO_URI)
+    const options = {useNewUrlParser: true, useUnifiedTopology: true}
+    const client = await MongoClient.connect(MONGO_URI, options)
     const db = client.db()
     const articleCollection = db.collection("articles")
     const objId = new ObjectID(id)
@@ -24,7 +26,8 @@ export const findDBArticle = async (id: any) => {
 
 export const submitArticleToDB = async (article: any) => {
     const MONGO_URI: any = process.env.DB_HOST
-    const client = await MongoClient.connect(MONGO_URI)
+    const options = {useNewUrlParser: true, useUnifiedTopology: true}
+    const client = await MongoClient.connect(MONGO_URI, options)
     const db = client.db()
     const articleCollection = db.collection("articles")
     await articleCollection.insertOne(article)
@@ -33,11 +36,12 @@ export const submitArticleToDB = async (article: any) => {
 
 export const updateDB = async (id: any, article: any) => {
     const MONGO_URI: any = process.env.DB_HOST
-    const client = await MongoClient.connect(MONGO_URI)
+    const options = {useNewUrlParser: true, useUnifiedTopology: true}
+    const client = await MongoClient.connect(MONGO_URI, options)
     const db = client.db()
     const articleCollection = db.collection("articles")
     const objId = new ObjectID(id)
-    await articleCollection.updateOne({"_id": objId}, {$set: {title: article.title, user: article.user, description: article.description, content: article.content}}, { upsert: false })
+    await articleCollection.updateOne({"_id": objId}, {$set: {title: article.title, description: article.description, content: article.content}}, { upsert: false })
 }
 
 

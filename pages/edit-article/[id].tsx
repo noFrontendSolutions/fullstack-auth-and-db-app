@@ -3,6 +3,7 @@ import { findDBArticle, connectToDB } from "../../database/db-related"
 import { AuthContext } from "../../authentication/AuthContext"
 import { useContext, useState} from "react"
 import { useRouter } from "next/dist/client/router"
+import {Article} from "../MyContributions"
 
 export const getStaticPaths = async () => {
     
@@ -27,7 +28,7 @@ export const getStaticProps = async (context: any) => {
     }
 }
 
-    const EditArticle = (props: any) => {
+    const EditArticle: React.FC<{article: Article}> = (props) => {
         //console.log(props.oldArticle)
         const context = useContext(AuthContext)
         const id = props.article._id
