@@ -1,10 +1,14 @@
 import { MongoClient } from "mongodb"
 import { ObjectID } from "bson"
+let cachedData = {}
+
 
 export const connectToDB = async () => {
-    const MONGO_URI: any = process.env.DB_HOST
-    const options = {useNewUrlParser: true, useUnifiedTopology: true}
-    const client = await MongoClient.connect(MONGO_URI, options)
+    const MONGO_URI = process.env.DB_HOST
+    const client = await MongoClient.connect(MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
     const db = client.db()
     const articleCollection = db.collection("articles")
     const allArticles = await articleCollection.find().toArray()
@@ -12,10 +16,12 @@ export const connectToDB = async () => {
     return allArticles
 }
 
-export const findDBArticle = async (id: any) => {
-    const MONGO_URI: any = process.env.DB_HOST
-    const options = {useNewUrlParser: true, useUnifiedTopology: true}
-    const client = await MongoClient.connect(MONGO_URI, options)
+export const findDBArticle = async (id) => {
+    const MONGO_URI = process.env.DB_HOST
+    const client = await MongoClient.connect(MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
     const db = client.db()
     const articleCollection = db.collection("articles")
     const objId = new ObjectID(id)
@@ -24,20 +30,24 @@ export const findDBArticle = async (id: any) => {
     return article
 }
 
-export const submitArticleToDB = async (article: any) => {
-    const MONGO_URI: any = process.env.DB_HOST
-    const options = {useNewUrlParser: true, useUnifiedTopology: true}
-    const client = await MongoClient.connect(MONGO_URI, options)
+export const submitArticleToDB = async (article) => {
+    const MONGO_URI = process.env.DB_HOST
+    const client = await MongoClient.connect(MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
     const db = client.db()
     const articleCollection = db.collection("articles")
     await articleCollection.insertOne(article)
     client.close()
 }
 
-export const updateDB = async (id: any, article: any) => {
-    const MONGO_URI: any = process.env.DB_HOST
-    const options = {useNewUrlParser: true, useUnifiedTopology: true}
-    const client = await MongoClient.connect(MONGO_URI, options)
+export const updateDB = async (id, article) => {
+    const MONGO_URI = process.env.DB_HOST
+    const client = await MongoClient.connect(MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
     const db = client.db()
     const articleCollection = db.collection("articles")
     const objId = new ObjectID(id)
