@@ -37,7 +37,7 @@ export const updateDB = async (id: any, article: any) => {
     const db = client.db()
     const articleCollection = db.collection("articles")
     const objId = new ObjectID(id)
-    await articleCollection.updateOne({"_id": objId}, {$set: {title: article.title, description: article.description, content: article.content}}, { upsert: true })
+    await articleCollection.updateOne({"_id": objId}, {$set: {title: article.title, user: article.user, description: article.description, content: article.content}}, { upsert: false })
 }
 
 

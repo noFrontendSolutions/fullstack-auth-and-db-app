@@ -22,9 +22,9 @@ const NewArticle = (props: any) => {
             headers: {"Content-Type": "application/json"}
         })
 
-        const answer = await response.json()
+        //const answer = await response.json()
         //console.log(answer)
-        router.push("./")
+        router.push("/")
     }
   
     return(

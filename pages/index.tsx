@@ -3,17 +3,18 @@ import Link from "next/link"
 import {connectToDB} from "../database/db-related"
 
 export const getStaticProps = async () => {
-  const allArticles = await connectToDB()
+  const data = await connectToDB()
+  const articles = data.map(article => {
+    return {
+    user: article.user,
+    title: article.title,
+    description: article.description,
+    content: article.content,
+    id: article._id.toString()
+  }})
 
   return {
-    props: 
-      {articles: allArticles.map(article => ({
-        user: article.user,
-        title: article.title,
-        description: article.description,
-        content: article.content,
-        id: article._id.toString()
-      }))}
+    props: {articles}
   }
 }
 

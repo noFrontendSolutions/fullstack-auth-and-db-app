@@ -30,14 +30,14 @@ export const getStaticProps = async (context: any) => {
     const EditArticle = (props: any) => {
         //console.log(props.oldArticle)
         const context = useContext(AuthContext)
-        const id = props.article.id
+        const id = props.article._id
         const [title, setTitle] = useState(props.article.title)
         const [description, setDescription] = useState(props.article.description)
         const [content, setContent] = useState(props.article.content) 
     
         const router = useRouter()
         const user = context.user
-        const data = {user, title, description, content, id}
+        const data = {id, user, title, description, content}
         console.log(props)
         const resubmitHandler = async () => {
             const response = await fetch('../api/request-handler', {
@@ -46,7 +46,7 @@ export const getStaticProps = async (context: any) => {
                 headers: {"Content-Type": "application/json"}
             })
     
-            const answer = await response.json()
+            //const answer = await response.json()
             //console.log(answer)
             router.push("/")
         }
