@@ -1,40 +1,36 @@
-import { AuthContext } from "../authentication/AuthContext"
 import { useContext, useState } from "react"
 import { useRouter } from "next/dist/client/router"
-//import Article from "./articles/[id]"
+import { useUser } from '@auth0/nextjs-auth0'
 
 const NewArticle = (props: any) => {
-    //console.log(props.oldArticle)
-    const context = useContext(AuthContext)
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [content, setContent] = useState("") 
 
+    const {user} = useUser()
+
     const router = useRouter()
-    const user = context.user
-    const data = {user, title, description, content}
+    const email = user?.email
+    
+    const data = {user: email, title, description, content}
     const submitHandler = async () => {
         
-        //console.log(data)
         const response = await fetch('./api/request-handler', {
             method: "POST",
             body: JSON.stringify(data),
             headers: {"Content-Type": "application/json"}
         })
-
-        //const answer = await response.json()
-        //console.log(answer)
         router.push("/")
     }
   
     return(
         <div className = "h-full p-4 flex justify-center">
-            { !context.user &&
+            { !user &&
             <div className = "flex items-center justify-center text-2xl">
                 YOU'RE NOT AUTHORIZED TO VIEW THIS CONTENT. LOGIN BEFORE YOU START WRITING A NEW BLOG!            
             </div>
             }
-            { context.user &&
+            { user &&
                 <div className = "flex flex-col w-1/2"> 
                 <form className = "flex flex-col border p-2">
                     <label htmlFor="input">Title</label>

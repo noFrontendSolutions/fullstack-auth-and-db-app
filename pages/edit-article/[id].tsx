@@ -1,9 +1,9 @@
 //import connectToDB from "../../Database/db-related"
 import { findDBArticle, connectToDB } from "../../database/db-related"
-import { AuthContext } from "../../authentication/AuthContext"
 import { useContext, useState} from "react"
 import { useRouter } from "next/dist/client/router"
 import {Article} from "../MyContributions"
+import { useUser } from '@auth0/nextjs-auth0'
 
 export const getStaticPaths = async () => {
     
@@ -28,17 +28,17 @@ export const getStaticProps = async (context: any) => {
     }
 }
 
-    const EditArticle: React.FC<{article: Article}> = (props) => {
+const EditArticle: React.FC<{article: Article}> = (props) => {
+        const {user} = useUser() 
         //console.log(props.oldArticle)
-        const context = useContext(AuthContext)
         const id = props.article._id
         const [title, setTitle] = useState(props.article.title)
         const [description, setDescription] = useState(props.article.description)
         const [content, setContent] = useState(props.article.content) 
     
         const router = useRouter()
-        const user = context.user
-        const data = {id, user, title, description, content}
+        const email = user?.email
+        const data = {id, user: email, title, description, content}
         console.log(props)
         const resubmitHandler = async () => {
             const response = await fetch('../api/request-handler', {
@@ -54,12 +54,12 @@ export const getStaticProps = async (context: any) => {
       
         return(
             <div className = "h-full p-4 flex justify-center">
-                { !context.user &&
+                { !user &&
                 <div className = "flex items-center justify-center text-2xl">
                     YOU'RE NOT AUTHORIZED TO VIEW THIS CONTENT. LOGIN BEFORE YOU START WRITING A NEW BLOG!            
                 </div>
                 }
-                { context.user === props.article.user &&
+                { user === props.article.user &&
                     <div className = "flex flex-col w-1/2"> 
                     <form className = "flex flex-col border p-2">
                         <label htmlFor="input">Title</label>

@@ -1,8 +1,8 @@
-import { AuthContext } from "../authentication/AuthContext"
 import { useContext} from "react"
 import {connectToDB} from "../database/db-related"
 import Link from "next/link"
 import { GetStaticProps } from "next"
+import { useUser } from '@auth0/nextjs-auth0'
 
 export interface Article {
     user?: string
@@ -31,8 +31,8 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 
 const MyContributions = (props: any) => {
-    const context = useContext(AuthContext)
-    let myArticles: Article[] = props.allArticles.filter((article: { user: string }) => article.user === context.user)
+    const {user} = useUser()
+    let myArticles: Article[] = props.allArticles.filter((article: { user: string }) => article.user === user?.email)
 
     //useEffect(() => {
     //  myArticles = props.allArticles.filter(article => article.email === context.user)
@@ -41,13 +41,13 @@ const MyContributions = (props: any) => {
 
     return (
         <div className = "h-screen">
-        { !context.user &&
+        { !user &&
         <div className = "flex items-center justify-center text-3xl">
             YOU'RE NOT AUTHORIZED TO VIEW THIS CONTENT. LOGIN BEFORE YOU START WRITING A NEW BLOG!            
         </div>
         }
         <div>
-        { context.user &&
+        { user &&
         <div className = "h-full">
             {myArticles.map(article => (
                 <div>
