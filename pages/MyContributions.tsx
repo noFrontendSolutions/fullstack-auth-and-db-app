@@ -1,16 +1,9 @@
-import { useContext} from "react"
 import {connectToDB} from "../database/db-related"
 import Link from "next/link"
 import { GetStaticProps } from "next"
 import { useUser } from '@auth0/nextjs-auth0'
+import {Article} from '../types'
 
-export interface Article {
-    user?: string
-    title: string
-    description: string
-    content: string
-    _id?: string
-}
 
 export const getStaticProps: GetStaticProps = async () => {
     const data = await connectToDB()
@@ -50,7 +43,7 @@ const MyContributions = (props: any) => {
         { user &&
         <div className = "h-full">
             {myArticles.map(article => (
-                <div>
+                <div key = {article._id}>
                 <Link key = {article._id} href = {"/edit-article/" + article._id}>
                     <h2 className = "text-blue-500 font-bold text-2xl text-center>">{article.title}</h2>
                 </Link>

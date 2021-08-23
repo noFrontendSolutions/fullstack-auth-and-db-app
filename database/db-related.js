@@ -35,11 +35,21 @@ export const submitArticleToDB = async (article) => {
     await articleCollection.insertOne(article)
 }
 
-export const updateDB = async (id, article) => {
+export const updateDBArticle = async (id, article) => {
     const db = (await connection()).db()
+    console.log(article)
     const articleCollection = db.collection("articles")
     const objId = new ObjectID(id)
-    await articleCollection.updateOne({"_id": objId}, {$set: {title: article.title, description: article.description, content: article.content}}, { upsert: false })
+    await articleCollection.updateOne({"_id": objId}, {$set: {id_: objId, title: article.title, description: article.description, content: article.content}}, { upsert: false })
+}
+
+export const deleteDBArticle = async (id, article) => {
+    const db = (await connection()).db()
+    const articleCollection = db.collection("articles")
+    await articleCollection.deleteOne({"title": article.title, "user": article.user}, (err) => {
+        if(err) console.log(err)
+        console.log("Deletion successful!")
+    })
 }
 
 
