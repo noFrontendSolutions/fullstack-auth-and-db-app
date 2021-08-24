@@ -4,4 +4,5 @@ export interface Article {
     description: string
     content: string
     _id: string
+    date?: string
 }

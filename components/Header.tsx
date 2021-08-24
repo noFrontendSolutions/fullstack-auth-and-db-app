@@ -16,8 +16,8 @@ const Header = () => {
             <Link href = "/">
                 <a className = {asPath === "/" ? "m-4 border-gray-700 border-b-4" : "m-4"}>Home</a>
             </Link>
-            <Link href = "/Contributers">
-                <a className = {asPath === "/Contributers" ? "m-4 border-gray-700 border-b-4" : "m-4"}>Contributers</a>
+            <Link href = "/contributers">
+                <a className = {asPath === "/contributers" ? "m-4 border-gray-700 border-b-4" : "m-4"}>Contributers</a>
             </Link>
             </div>
             { !user &&
@@ -31,11 +31,11 @@ const Header = () => {
             }
             { user &&
             <div className = "flex items-center">
-                <Link href = "/NewArticle">
-                <a className = {asPath === "/NewBlog" ? "m-4 border-gray-700 border-b-4" : "m-4"}>Create New Blog</a>
+                <Link href = "/new-article">
+                <a className = {asPath === "/new-article" ? "m-4 border-gray-700 border-b-4" : "m-4"}>Create New Blog</a>
                 </Link>
-                <Link href = "/MyContributions">
-                <a className = {asPath === "/MyContributions" ? "m-4 border-gray-700 border-b-4" : "m-4"}>My Contributions</a>
+                <Link href = "/my-contributions">
+                <a className = {asPath === "/my-contributions" ? "m-4 border-gray-700 border-b-4" : "m-4"}>My Contributions</a>
                 </Link>
                 <div className = "mx-4 px-2 bg-gray-300 rounded">{user.email}</div>
                 <Link href = "api/auth/logout">

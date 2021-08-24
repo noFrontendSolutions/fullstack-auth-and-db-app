@@ -32,6 +32,7 @@ const Article = (props: any) => {
             <h1>{props.article.title}</h1>
             <p>{props.article.description}</p>
             <p>{props.article.content}</p>
+            <p>{props.article.date}</p>
         </div>
     )
 

@@ -4,20 +4,18 @@ import { ObjectID } from "bson"
 
 const connection = async () => {
   const MONGO_URI = process.env.DB_HOST
-  const client = await MongoClient.connect(MONGO_URI, {
+  const con = await MongoClient.connect(MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    return client
+    return con
 }
 
 
 export const connectToDB = async () => {
-    const connec = await connection()
-    const db = connec.db()
+    const db = (await connection()).db()
     const articleCollection = db.collection("articles")
     const allArticles = await articleCollection.find().toArray()
-    connec.close()
     return allArticles
 }
 
@@ -46,10 +44,7 @@ export const updateDBArticle = async (id, article) => {
 export const deleteDBArticle = async (id, article) => {
     const db = (await connection()).db()
     const articleCollection = db.collection("articles")
-    await articleCollection.deleteOne({"title": article.title, "user": article.user}, (err) => {
-        if(err) console.log(err)
-        console.log("Deletion successful!")
-    })
+    await articleCollection.deleteOne({"title": article.title, "user": article.user})
 }
 
 
