@@ -1,9 +1,8 @@
 import { useState } from "react"
 import { useRouter } from "next/dist/client/router"
 import { useUser } from '@auth0/nextjs-auth0'
-import DOMPurify from 'isomorphic-dompurify'
-import marked from "marked"
 import { InputOutput } from "../components/InputOutput"
+
 
 
 const NewArticle: React.FC = () => {
@@ -33,13 +32,11 @@ const NewArticle: React.FC = () => {
         router.push("/")
     }
 
-    function createMarkup(md: string) {
-        let cleanMd = DOMPurify.sanitize(md)
-        return {__html: marked(cleanMd)};
-      }
   
     return(
+        <>
         <InputOutput setTitle = {setTitle}  setDescription = {setDescription} setContent = {setContent} submitHandler = {submitHandler} content = {content}/>
+        </>
     )
 }
 

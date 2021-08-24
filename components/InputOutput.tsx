@@ -1,14 +1,19 @@
 import { Article } from "../types";
 import { useUser } from "@auth0/nextjs-auth0";
 import DOMPurify from 'isomorphic-dompurify'
-import marked from "marked"
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+//to get Markdown to work properly with tailwindcss I've created a unreset scss-class in the tailwind folder (unreset.scss) and imported into _app.js and then used in the ReactMarkdown element.
+//watch "https://www.youtube.com/watch?v=iLEYtgBezhs" for details  
+
+
 
 export const InputOutput = (props: any) => {
     const user = useUser()
 
-    function createMarkup(md: string) {
-        let cleanMd = DOMPurify.sanitize(md)
-        return {__html: marked(cleanMd)};
+   function cleanMarkdown(md: string) {
+       let cleanMd = DOMPurify.sanitize(md)
+        return cleanMd
     }
 
     return(
@@ -41,9 +46,9 @@ export const InputOutput = (props: any) => {
                     }
                 </div>
             </div>
-            <div className = "ml-4 text-center h-2/3"> 
-                < label htmlFor="input" className = "font-bold">Markdown Preview</label>
-                <div dangerouslySetInnerHTML = {createMarkup(props.content)} className = "h-full p-2 flex border"></div>
+            <div className = "ml-4 h-2/3 flex-none"> 
+                <label htmlFor="input" className = "font-bold">Markdown Preview</label>
+                <ReactMarkdown className = "h-full p-2 border overflow-scroll unreset" remarkPlugins={[remarkGfm]}>{cleanMarkdown(props.content)}</ReactMarkdown>
             </div> 
             </>
             }
