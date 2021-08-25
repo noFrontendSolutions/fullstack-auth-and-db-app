@@ -26,6 +26,13 @@ export const findDBArticle = async (id) => {
   return article;
 };
 
+export const getAuthorsDBArticles = async (author) => {
+  const db = (await makeConnection()).db();
+  const articleCollection = db.collection("articles");
+  const theirArticles = await articleCollection.find({ author: author }).toArray();
+  return theirArticles;
+};
+
 export const submitArticleToDB = async (article) => {
   const db = (await makeConnection()).db();
   const articleCollection = db.collection("articles");
