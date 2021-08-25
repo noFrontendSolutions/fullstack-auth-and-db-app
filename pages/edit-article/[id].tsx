@@ -37,12 +37,13 @@ export const getStaticProps = async (context: any) => {
 };
 
 const EditArticle: React.FC<{ article: Article }> = (props) => {
-  
   const { user } = useUser();
 
   const id = props.article._id;
   const [title, setTitle] = useState<string>(props.article.title);
-  const [description, setDescription] = useState<string>(props.article.description);
+  const [description, setDescription] = useState<string>(
+    props.article.description
+  );
   const [markdown, setMarkdown] = useState<string>(props.article.markdown);
 
   const router = useRouter();
@@ -71,13 +72,13 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
 
   return (
     <InputForm
-      edit = {true}
+      edit={true}
       title={title}
       description={description}
       markdown={markdown}
       resubmitHandler={resubmitHandler}
       deleteHandler={deleteHandler}
-      setTitle={setTitle} 
+      setTitle={setTitle}
       setDescription={setDescription}
       setMarkdown={setMarkdown}
     ></InputForm>

@@ -59,4 +59,16 @@ export const deleteDBArticle = async (id, article) => {
   });
 };
 
+export const getDBAuthors = async () => {
+    let authors = []
+    const db = (await makeConnection()).db()
+    const articleCollection = await db.collection("articles").find().toArray(); //this is not effective...be more specific and use find method
+    articleCollection.forEach(article => {
+        if(!authors.includes(article.author)) {
+            authors.push(article.author)
+        }
+    })
+    return authors
+}
+
 
