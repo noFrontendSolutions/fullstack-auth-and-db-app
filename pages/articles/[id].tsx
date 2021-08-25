@@ -1,4 +1,3 @@
-//import connectToDB from "../../Database/db-related"
 import { findDBArticle, connectToDB } from "../../database/db-related"
 
 export const getStaticPaths = async () => {

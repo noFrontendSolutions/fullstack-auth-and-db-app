@@ -1,11 +1,5 @@
 const Footer = () => {
+  return <div>Copyright © 2021 by Benjamin Welzel</div>;
+};
 
-    return(
-        <div>
-            Copyright © 2021 by Benjamin Welzel
-        </div>
-    )
-
-}
-
-export default Footer
+export default Footer;

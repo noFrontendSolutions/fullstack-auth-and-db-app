@@ -1,16 +1,16 @@
-import 'tailwindcss/tailwind.css'
-import "tailwindcss/unreset.scss"
-import Layout from "../components/Layout"
-import { UserProvider } from '@auth0/nextjs-auth0';
+import "tailwindcss/tailwind.css";
+import "tailwindcss/unreset.scss";
+import Layout from "../components/Layout";
+import { UserProvider } from "@auth0/nextjs-auth0";
 
 function MyApp({ Component, pageProps }) {
   return (
-      <UserProvider>
-        <Layout>
-          <Component {...pageProps} />
-       </Layout>
-      </UserProvider>
-  )
+    <UserProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </UserProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
