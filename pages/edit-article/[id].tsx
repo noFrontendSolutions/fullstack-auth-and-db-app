@@ -1,9 +1,18 @@
 import { findDBArticle, connectToDB } from "../../database/db-related";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/dist/client/router";
-import { Article } from "../../types";
 import { useUser } from "@auth0/nextjs-auth0";
 import InputForm from "../../components/InputForm";
+
+export interface Article {
+  _id: string;
+  author: string;
+  email: string;
+  title: string;
+  description: string;
+  markdown: string;
+  date: string;
+}
 
 export const getStaticPaths = async () => {
   const allArticles = await connectToDB();
@@ -21,22 +30,26 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context: any) => {
   const id = context.params.id;
   const data = await findDBArticle(id);
-  const article = JSON.parse(JSON.stringify(data[0]));
+  const article = JSON.parse(JSON.stringify(data[0])); //found no way around sending the aricle from the db as an array with one element
   return {
     props: { article },
   };
 };
 
 const EditArticle: React.FC<{ article: Article }> = (props) => {
+  
   const { user } = useUser();
-  const id = props.article._id!;
+
+  const id = props.article._id;
   const [title, setTitle] = useState(props.article.title);
   const [description, setDescription] = useState(props.article.description);
-  const [content, setContent] = useState(props.article.content);
+  const [markdown, setMarkdown] = useState(props.article.markdown);
 
   const router = useRouter();
   const email = user?.email;
-  const data = { id, user: email, title, description, content };
+  const author = user?.name;
+
+  const data = { id, author, email, title, description, markdown };
 
   const resubmitHandler = async () => {
     const response = await fetch("../api/request-handler", {
@@ -60,12 +73,12 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
     <InputForm
       title={title}
       description={description}
-      content={content}
+      markdown={markdown}
       resubmitHandler={resubmitHandler}
       deleteHandler={deleteHandler}
       setTitle={setTitle}
       setDescription={setDescription}
-      setContent={setContent}
+      setContent={setMarkdown}
     ></InputForm>
   );
 };

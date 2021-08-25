@@ -2,34 +2,41 @@ import {connectToDB} from "../database/db-related"
 import Link from "next/link"
 import { GetStaticProps } from "next"
 import { useUser } from '@auth0/nextjs-auth0'
-import {Article} from '../types'
+
+export interface Article {
+    _id: string
+    author: string
+    email: string,
+    title: string
+    description: string
+    markdown: string
+    date: string
+}
 
 
 export const getStaticProps: GetStaticProps = async () => {
     const data = await connectToDB()
-    const allArticles = data.map(article => {
+    const collection = data.map(article => {
         const id = JSON.parse(JSON.stringify(article._id))
         return {
-            user: article.user,
+            _id: id,
+            author: article.author,
+            email: article.email,
             title: article.title,
             description: article.description,
-            content: article.content,
-            _id: id
+            markdown: article.markdown,
+            date: article.date,
         }
     })
     
     return {
-        props: {allArticles}
+        props: {collection}
       }
   }
 
 const MyContributions = (props: any) => {
     const {user} = useUser()
-    let myArticles: Article[] = props.allArticles.filter((article: { user: string }) => article.user === user?.email)
-
-    //useEffect(() => {
-    //  myArticles = props.allArticles.filter(article => article.email === context.user)
-    //}, [context.authenticated])
+    let myArticles: Article[] = props.collection.filter((article: { email: string }) => article.email === user?.email)
 
 
     return (

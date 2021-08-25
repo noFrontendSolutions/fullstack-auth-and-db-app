@@ -11,12 +11,14 @@ import marked from "marked";
 //And by the way, there is no way to get ReactMarkdown to work while using getStaticProps (webpack error). So there's no way around "dangerouslySetInnerHTML" in combination with the sanitize function (createCleanMArkdown()) below.
 
 const InputOutput = (props: any) => {
+
   const user = useUser();
 
   function createCleanMarkdown(md: string) {
     let cleanMd = DOMPurify.sanitize(md);
     return { __html: marked(cleanMd) };
   }
+
   return (
     <div className="h-full p-4 grid grid-cols-2">
       {!user && (
@@ -50,8 +52,8 @@ const InputOutput = (props: any) => {
                   spellCheck="false"
                   placeholder="Start Here..."
                   className="border h-96 p-2"
-                  onChange={(e) => props.setContent(e.target.value)}
-                  defaultValue={props.content ? props.content : ""}
+                  onChange={(e) => props.setMarkdown(e.target.value)}
+                  defaultValue={props.markdown ? props.markdown : ""}
                 ></textarea>
               </form>
               {!props.resubmitHandler && (
@@ -86,7 +88,7 @@ const InputOutput = (props: any) => {
             </label>
             <div
               className="h-full p-2 border overflow-scroll unreset"
-              dangerouslySetInnerHTML={createCleanMarkdown(props.content)}
+              dangerouslySetInnerHTML={createCleanMarkdown(props.markdown)}
             ></div>
           </div>
         </>

@@ -5,11 +5,12 @@ export const getStaticProps = async () => {
   const data = await connectToDB();
   const articles = data.map((article) => {
     return {
-      user: article.user,
+      id: article._id.toString(),
+      author: article.author,
+      email: article.email,
       title: article.title,
       description: article.description,
-      content: article.content,
-      id: article._id.toString(),
+      markdown: article.markdown,
     };
   });
 

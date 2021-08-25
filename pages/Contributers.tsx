@@ -4,10 +4,9 @@ import {connectToDB} from "../database/db-related"
 export const getStaticProps = async () => {
   
   const allArticles = await connectToDB()
-  
     let authors: string[] = []
     allArticles.forEach((article) => {
-        if(!authors.includes(article.user)) authors.push(article.user) 
+        if(!authors.includes(article.author)) authors.push(article.author) 
     })
     return {
       props: 
