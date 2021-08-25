@@ -1,6 +1,7 @@
 import { useUser } from "@auth0/nextjs-auth0";
 import DOMPurify from "isomorphic-dompurify";
 import marked from "marked";
+import { Dispatch } from "react";
 
 //to get Markdown to work properly with tailwindcss I've created a ".unreset" scss-class in the tailwind folder (unreset.scss) and imported into _app.js and then used in the ReactMarkdown element.
 //watch "https://www.youtube.com/watch?v=iLEYtgBezhs" for details
@@ -10,7 +11,21 @@ import marked from "marked";
 
 //And by the way, there is no way to get ReactMarkdown to work while using getStaticProps (webpack error). So there's no way around "dangerouslySetInnerHTML" in combination with the sanitize function (createCleanMArkdown()) below.
 
-const InputOutput = (props: any) => {
+interface Submission {
+    edit: boolean
+    author?: string
+    title?: string
+    description?: string
+    markdown?: string
+    submitHandler?: () => void
+    resubmitHandler?: () => void
+    deleteHandler?: () => void
+    setTitle: Dispatch<string>
+    setDescription: Dispatch<string>
+    setMarkdown: Dispatch<string>
+}
+
+const InputOutput: React.FC<Submission> = (props: any) => {
 
   const user = useUser();
 
@@ -56,7 +71,7 @@ const InputOutput = (props: any) => {
                   defaultValue={props.markdown ? props.markdown : ""}
                 ></textarea>
               </form>
-              {!props.resubmitHandler && (
+              {!props.edit && (
                 <button
                   className="my-2 p-2 border-2 rounded full bg-red-400 text-gray-700 font-bold"
                   onClick={props.submitHandler}
@@ -64,7 +79,7 @@ const InputOutput = (props: any) => {
                   SUBMIT!
                 </button>
               )}
-              {props.resubmitHandler && (
+              {props.edit && (
                 <span>
                   <button
                     className="my-2 p-2 border-2 rounded full bg-green-400 text-gray-700 font-bold"

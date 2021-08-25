@@ -41,9 +41,9 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
   const { user } = useUser();
 
   const id = props.article._id;
-  const [title, setTitle] = useState(props.article.title);
-  const [description, setDescription] = useState(props.article.description);
-  const [markdown, setMarkdown] = useState(props.article.markdown);
+  const [title, setTitle] = useState<string>(props.article.title);
+  const [description, setDescription] = useState<string>(props.article.description);
+  const [markdown, setMarkdown] = useState<string>(props.article.markdown);
 
   const router = useRouter();
   const email = user?.email;
@@ -71,14 +71,15 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
 
   return (
     <InputForm
+      edit = {true}
       title={title}
       description={description}
       markdown={markdown}
       resubmitHandler={resubmitHandler}
       deleteHandler={deleteHandler}
-      setTitle={setTitle}
+      setTitle={setTitle} 
       setDescription={setDescription}
-      setContent={setMarkdown}
+      setMarkdown={setMarkdown}
     ></InputForm>
   );
 };

@@ -45,7 +45,7 @@ const NewArticle: React.FC = () => {
   
     return(
         <>
-        <InputOutput setTitle = {setTitle}  setDescription = {setDescription} setMarkdown = {setMarkdown} submitHandler = {submitHandler} markdown = {markdown}/>
+        <InputOutput edit = {false} setTitle = {setTitle}  setDescription = {setDescription} setMarkdown = {setMarkdown} submitHandler = {submitHandler} markdown = {markdown}/>
         </>
     )
 }
