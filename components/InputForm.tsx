@@ -16,7 +16,7 @@ interface Submission {
     author?: string
     title?: string
     description?: string
-    markdown?: string
+    markdown: string
     submitHandler?: () => void
     resubmitHandler?: () => void
     deleteHandler?: () => void
@@ -25,7 +25,7 @@ interface Submission {
     setMarkdown: Dispatch<string>
 }
 
-const InputOutput: React.FC<Submission> = (props: any) => {
+const InputOutput: React.FC<Submission> = (props) => {
 
   const user = useUser();
 
@@ -104,6 +104,7 @@ const InputOutput: React.FC<Submission> = (props: any) => {
             <div
               className="h-full p-2 border overflow-scroll unreset"
               dangerouslySetInnerHTML={createCleanMarkdown(props.markdown)}
+            
             ></div>
           </div>
         </>

@@ -52,7 +52,9 @@ const MyContributions = (props: any) => {
             {myArticles.map(article => (
                 <div key = {article._id}>
                 <Link key = {article._id} href = {"/edit-article/" + article._id}>
-                    <h2 className = "text-blue-500 font-bold text-2xl text-center>">{article.title}</h2>
+                    <a>
+                        <h2 className = "text-blue-500 font-bold text-2xl text-center>">{article.title}</h2>
+                    </a>
                 </Link>
                 <p>{article.description}</p>
                 </div>
