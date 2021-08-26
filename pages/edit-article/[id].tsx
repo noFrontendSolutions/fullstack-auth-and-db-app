@@ -14,6 +14,7 @@ interface Article {
   description: string;
   markdown: string;
   date: string;
+  imageUrl: string
 }
 
 interface IdSlug extends ParsedUrlQuery {
@@ -51,12 +52,13 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
     props.article.description
   );
   const [markdown, setMarkdown] = useState<string>(props.article.markdown);
+  const [imageUrl, setImageUrl] = useState(props.article.imageUrl)
 
   const router = useRouter();
   const email = user?.email;
   const author = user?.name;
 
-  const data = { id, author, email, title, description, markdown };
+  const data = { id, author, email, title, description, markdown, imageUrl };
 
   const resubmitHandler = async () => {
     const response = await fetch("../api/request-handler", {
@@ -82,11 +84,13 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
       title={title}
       description={description}
       markdown={markdown}
+      imageUrl={imageUrl}
       resubmitHandler={resubmitHandler}
       deleteHandler={deleteHandler}
       setTitle={setTitle}
       setDescription={setDescription}
       setMarkdown={setMarkdown}
+      setImageUrl = {setImageUrl}
     ></InputForm>
   );
 };

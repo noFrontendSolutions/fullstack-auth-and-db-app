@@ -3,13 +3,14 @@ import Link from "next/link"
 import { GetStaticProps } from "next"
 import { useUser } from '@auth0/nextjs-auth0'
 
-export interface ArticleCard {
+interface ArticleCard {
     _id: string
     author: string
     email: string   
     title: string
     description: string
     date: string
+    imageUrl: string
 }
 
 
@@ -24,6 +25,7 @@ export const getStaticProps: GetStaticProps = async () => {
             title: article.title,
             description: article.description,
             date: article.date,
+            imageUrl: article.imageUrl
         }
     })
     

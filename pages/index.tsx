@@ -8,6 +8,7 @@ interface ArticleCard {
   title: string
   description: string
   date: string
+  imageUrl: string
 }
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -18,7 +19,8 @@ export const getStaticProps: GetStaticProps = async () => {
       author: article.author,
       title: article.title,
       description: article.description,
-      date: article.date
+      date: article.date,
+      imageUrl: article.imageUrl
     };
   });
 

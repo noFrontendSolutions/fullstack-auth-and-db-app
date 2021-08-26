@@ -17,12 +17,14 @@ interface Submission {
   title?: string;
   description?: string;
   markdown: string;
+  imageUrl?: string
   submitHandler?: () => void;
   resubmitHandler?: () => void;
   deleteHandler?: () => void;
   setTitle: Dispatch<string>;
   setDescription: Dispatch<string>;
   setMarkdown: Dispatch<string>;
+  setImageUrl: Dispatch<string>
 }
 
 function renderCleanMarkdown(md: string) {
@@ -53,6 +55,14 @@ const InputOutput: React.FC<Submission> = (props) => {
                   placeholder="Start Here..."
                   onChange={(e) => props.setTitle(e.target.value)}
                   defaultValue={props.title ? props.title : ""}
+                ></input>
+                <label htmlFor="input">Image Url</label>
+                <input
+                  spellCheck="false"
+                  className="border p-2"
+                  placeholder="Start Here..."
+                  onChange={(e) => props.setImageUrl(e.target.value)}
+                  defaultValue={props.imageUrl ? props.title : ""}
                 ></input>
                 <label htmlFor="textarea">Description</label>
                 <textarea
