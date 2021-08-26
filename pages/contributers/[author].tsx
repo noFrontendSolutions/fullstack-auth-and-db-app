@@ -2,7 +2,6 @@ import { connectToDB, getDBAuthors, getAuthorsDBArticles } from "../../database/
 import Link from "next/link";
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { ParsedUrlQuery } from "node:querystring";
-import { useRouter } from 'next/router'
 
 interface ArticleCard {
   _id: string;
@@ -35,10 +34,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const {authorSlug} = context.params as AuthorSlug  //is the same as "const authorSlug = context.params.author" if using JS (but doesn't work like that using TS)
+  const {author} = context.params as AuthorSlug  //is the same as "const authorSlug = context.params.author" if using JS (but doesn't work like that using TS)
+ 
   const data = await connectToDB();
-  data.filter(article => authorSlug === urlIt(article.author))
-  let articles = data.map( (article): ArticleCard => {
+  const contributions = data.filter(article => author === urlIt(article.author))
+  let articles = contributions.map( (article): ArticleCard => {
     return {
     _id: article._id.toString(),
     author: article.author,
@@ -53,12 +53,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 const Contributions: React.FC<{articles: ArticleCard[]}> = (props) => {
-  const router = useRouter()
-  //console.log(router.asPath)
-  const contributions = props.articles.filter(article =>  "/contributers/" + urlIt(article.author) === router.asPath)
   return (
     <div className="min-h-full p-4 overflow-scroll">
-      {contributions.map((article) => (
+      {props.articles.map((article) => (
         <Link key={article._id} href={"../articles/" + article._id}>
           <a>
           <h2 className="text-blue-500 font-bold text-2xl text-center>">
