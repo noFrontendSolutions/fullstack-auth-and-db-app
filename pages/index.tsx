@@ -1,16 +1,24 @@
+import { GetStaticProps } from "next";
 import Link from "next/link";
 import { connectToDB } from "../database/db-related";
 
-export const getStaticProps = async () => {
+interface ArticleCard {
+  _id: string
+  author: string
+  title: string
+  description: string
+  date: string
+}
+
+export const getStaticProps: GetStaticProps = async () => {
   const data = await connectToDB();
-  const articles = data.map((article) => {
+  const articles: ArticleCard[] = data.map((article): ArticleCard => {
     return {
-      id: article._id.toString(),
+      _id: article._id.toString(),
       author: article.author,
-      email: article.email,
       title: article.title,
       description: article.description,
-      markdown: article.markdown,
+      date: article.date
     };
   });
 
@@ -19,11 +27,11 @@ export const getStaticProps = async () => {
   };
 };
 
-const Home = (props: any) => {
+const Home: React.FC<{articles: ArticleCard[]}> = (props) => {
   return (
     <div className="min-h-full p-4 overflow-scroll">
-      {props.articles.map((article: any) => (
-        <Link key={article.id} href={"/articles/" + article.id}>
+      {props.articles.map((article) => (
+        <Link key={article._id} href={"/articles/" + article._id}>
           <a>
             <h2 className="text-blue-500 font-bold text-2xl text-center>">
               {article.title}

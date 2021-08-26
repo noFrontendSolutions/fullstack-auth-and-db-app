@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/dist/client/router";
 import { useUser } from "@auth0/nextjs-auth0";
 import InputForm from "../../components/InputForm";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { ParsedUrlQuery } from "node:querystring";
 
-export interface Article {
+interface Article {
   _id: string;
   author: string;
   email: string;
@@ -14,7 +16,11 @@ export interface Article {
   date: string;
 }
 
-export const getStaticPaths = async () => {
+interface IdSlug extends ParsedUrlQuery {
+  slug: string
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
   const allArticles = await connectToDB();
   const paths = allArticles.map((article) => {
     return {
@@ -27,8 +33,8 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async (context: any) => {
-  const id = context.params.id;
+export const getStaticProps: GetStaticProps = async (context) => {
+  const {id} = context.params as IdSlug;  //is the same as "const id = context.params.id" if using JS (but doesn't work like that using TS)
   const data = await findDBArticle(id);
   const article = JSON.parse(JSON.stringify(data[0])); //found no way around sending the aricle from the db as an array with one element
   return {

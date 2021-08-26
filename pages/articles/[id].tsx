@@ -1,8 +1,11 @@
+import { GetStaticPaths } from "next";
 import { findDBArticle, connectToDB } from "../../database/db-related";
 
 type Markdown = string;
 
-export const getStaticPaths = async () => {
+
+
+export const getStaticPaths: GetStaticPaths = async () => {
   const allArticles = await connectToDB();
   const paths = allArticles.map((article) => {
     return {

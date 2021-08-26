@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/dist/client/router";
 import { useUser } from "@auth0/nextjs-auth0";
 
-const Header = () => {
+const Header: React.FC = () => {
 
   const { user } = useUser();
   const { asPath } = useRouter();

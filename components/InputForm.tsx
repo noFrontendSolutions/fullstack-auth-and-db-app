@@ -12,27 +12,26 @@ import { Dispatch } from "react";
 //And by the way, there is no way to get ReactMarkdown to work while using getStaticProps (webpack error). So there's no way around "dangerouslySetInnerHTML" in combination with the sanitize function (createCleanMArkdown()) below.
 
 interface Submission {
-    edit: boolean
-    author?: string
-    title?: string
-    description?: string
-    markdown: string
-    submitHandler?: () => void
-    resubmitHandler?: () => void
-    deleteHandler?: () => void
-    setTitle: Dispatch<string>
-    setDescription: Dispatch<string>
-    setMarkdown: Dispatch<string>
+  edit: boolean;
+  author?: string;   //using "?" because Sumisson is used in "edit-mode" as well as "new-article-mode" 
+  title?: string;
+  description?: string;
+  markdown: string;
+  submitHandler?: () => void;
+  resubmitHandler?: () => void;
+  deleteHandler?: () => void;
+  setTitle: Dispatch<string>;
+  setDescription: Dispatch<string>;
+  setMarkdown: Dispatch<string>;
+}
+
+function renderCleanMarkdown(md: string) {
+  let cleanMd = DOMPurify.sanitize(md);
+  return { __html: marked(cleanMd) };
 }
 
 const InputOutput: React.FC<Submission> = (props) => {
-
   const user = useUser();
-
-  function createCleanMarkdown(md: string) {
-    let cleanMd = DOMPurify.sanitize(md);
-    return { __html: marked(cleanMd) };
-  }
 
   return (
     <div className="h-full p-4 grid grid-cols-2">
@@ -103,8 +102,7 @@ const InputOutput: React.FC<Submission> = (props) => {
             </label>
             <div
               className="h-full p-2 border overflow-scroll unreset"
-              dangerouslySetInnerHTML={createCleanMarkdown(props.markdown)}
-            
+              dangerouslySetInnerHTML={renderCleanMarkdown(props.markdown)}
             ></div>
           </div>
         </>

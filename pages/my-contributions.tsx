@@ -3,20 +3,19 @@ import Link from "next/link"
 import { GetStaticProps } from "next"
 import { useUser } from '@auth0/nextjs-auth0'
 
-export interface Article {
+export interface ArticleCard {
     _id: string
     author: string
-    email: string,
+    email: string   
     title: string
     description: string
-    markdown: string
     date: string
 }
 
 
 export const getStaticProps: GetStaticProps = async () => {
     const data = await connectToDB()
-    const collection = data.map(article => {
+    const collection: ArticleCard[] = data.map(article => {
         const id = JSON.parse(JSON.stringify(article._id))
         return {
             _id: id,
@@ -24,7 +23,6 @@ export const getStaticProps: GetStaticProps = async () => {
             email: article.email,
             title: article.title,
             description: article.description,
-            markdown: article.markdown,
             date: article.date,
         }
     })
@@ -34,10 +32,9 @@ export const getStaticProps: GetStaticProps = async () => {
       }
   }
 
-const MyContributions = (props: any) => {
+const MyContributions: React.FC<{collection: ArticleCard[]}> = (props) => {
     const {user} = useUser()
-    let myArticles: Article[] = props.collection.filter((article: { email: string }) => article.email === user?.email)
-
+    let myArticles: ArticleCard[] = props.collection.filter(article => article.email === user?.email) //I'm identifying author's contributions via email because "user.name" (from auth0 user profile) could be saved differently (trimmed) in Mongo Atlas, hence "user.name === article.author" wouldn't hold anymore...hence you get zero matches  
 
     return (
         <div className = "h-screen">

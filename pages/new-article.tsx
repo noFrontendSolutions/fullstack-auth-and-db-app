@@ -4,14 +4,14 @@ import { useUser } from '@auth0/nextjs-auth0'
 import  InputOutput from "../components/InputForm"
 
 
-const createDateString = () => {
+const createDateString = ():string => {
     const date = new Date()
     const dateString = date.getUTCFullYear() + "/" + (date.getUTCMonth() + 1) + "/" + date.getUTCDate()
     return dateString
 }
 
 
-const NewArticle = () => {
+const NewArticle: React.FC = () => {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [markdown, setMarkdown] = useState("") 
@@ -33,8 +33,6 @@ const NewArticle = () => {
         })
         router.push("/")
     }
-
-  
     return(
         <>
         <InputOutput edit = {false} setTitle = {setTitle}  setDescription = {setDescription} setMarkdown = {setMarkdown} submitHandler = {submitHandler} markdown = {markdown}/>
