@@ -1,5 +1,4 @@
 import "tailwindcss/tailwind.css";
-import "tailwindcss/unreset.scss";
 import Layout from "../components/Layout";
 import { UserProvider } from "@auth0/nextjs-auth0";
 

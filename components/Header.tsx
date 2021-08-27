@@ -31,13 +31,7 @@ const Header: React.FC = () => {
           </a>
         </Link>
       </div>
-      {!user && (
-        <div className="m-4 hover:text-indigo-500 hover:border-indigo-500">
-          <Link href="api/auth/login">
-            <button>Sign In / Login</button>
-          </Link>
-        </div>
-      )}
+    
       {user && (
         <div className="flex items-cent">
           <Link href="/new-article">
@@ -66,7 +60,7 @@ const Header: React.FC = () => {
           <Link href="api/auth/logout">
             <a className = "h-16">
             <img src={user.picture ? user.picture : "/placeholder.jpg"} className = "rounded-full h-16"/>
-            <button className= "font-medium text-lg absolute top-4 right-8 text-sm text-center"> Logout </button>
+            <button className= "font-medium text-lg absolute top-4 right-8 text-sm text-center">{!user ? "Log In / Sign Up" : "Logout"}</button>
             </a>
           </Link>
         </div>

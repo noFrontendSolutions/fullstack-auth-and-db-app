@@ -3,14 +3,6 @@ import DOMPurify from "isomorphic-dompurify";
 import marked from "marked";
 import { Dispatch } from "react";
 
-//to get Markdown to work properly with tailwindcss I've created a ".unreset" scss-class in the tailwind folder (unreset.scss) and imported into _app.js and then used in the ReactMarkdown element.
-//watch "https://www.youtube.com/watch?v=iLEYtgBezhs" for details
-
-//another possibility to get Markdown to work is to switch off preflight mode in the tailwind.config.js file. Like this: "module.exports = {corePlugins: { preflight: false, }, ...}.
-//However, this would mess with the default tailwind style and change the appearance of your app (see Tailwind (preflight) documentaion for details)
-
-//And by the way, there is no way to get ReactMarkdown to work while using getStaticProps (webpack error). So there's no way around "dangerouslySetInnerHTML" in combination with the sanitize function (createCleanMArkdown()) below.
-
 interface Submission {
   edit: boolean;
   author?: string;   //using "?" because Sumisson is used in "edit-mode" as well as "new-article-mode" 
@@ -111,8 +103,8 @@ const InputOutput: React.FC<Submission> = (props) => {
               Markdown Preview
             </label>
             <div
-              className="h-full p-2 border overflow-scroll unreset"
-              dangerouslySetInnerHTML={renderCleanMarkdown(props.markdown)}
+              className="h-full p-2 border overflow-scroll prose prose-sm sm:prose lg:prose-lg xl:prose-xl"
+              dangerouslySetInnerHTML={renderCleanMarkdown(props.markdown)} //There was no way to get ReactMarkdown to work in combination with getStaticProps (at least I think that this was causing the webpack error). So there's no way around "dangerouslySetInnerHTML". I hope the sanitize function (createCleanMArkdown()) does the trick.
             ></div>
           </div>
         </>

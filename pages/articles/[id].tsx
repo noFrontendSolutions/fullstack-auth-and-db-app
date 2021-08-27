@@ -36,7 +36,7 @@ export const getStaticProps:GetStaticProps = async (context) => {
 const Article: React.FC<{ markdown: Markdown }> = (props) => {
   return (
     <div
-    className="p-6 border max-w-screen-2xl unreset self-center"
+    className="p-6 border self-center prose prose-sm sm:prose lg:prose-lg xl:prose-xl"
     dangerouslySetInnerHTML={renderCleanMarkdown(props.markdown)}
   ></div>
   )
