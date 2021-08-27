@@ -27,7 +27,7 @@ interface Submission {
   setImageUrl: Dispatch<string>
 }
 
-function renderCleanMarkdown(md: string) {
+export function renderCleanMarkdown(md: string) {
   let cleanMd = DOMPurify.sanitize(md);
   return { __html: marked(cleanMd) };
 }

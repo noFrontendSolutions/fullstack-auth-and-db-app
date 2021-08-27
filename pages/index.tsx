@@ -1,6 +1,7 @@
 import { GetStaticProps } from "next";
 import Link from "next/link";
 import { connectToDB } from "../database/db-related";
+import CardComponent from "../components/CardComponent"
 
 interface ArticleCard {
   _id: string
@@ -31,13 +32,19 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Home: React.FC<{articles: ArticleCard[]}> = (props) => {
   return (
-    <div className="min-h-full p-4 overflow-scroll">
+   
+    <div className="pt-16 min-h-full p-4 max-w-screen-2xl grid grid-cols-2 gap-8 self-center">
       {props.articles.map((article) => (
         <Link key={article._id} href={"/articles/" + article._id}>
           <a>
-            <h2 className="text-blue-500 font-bold text-2xl text-center>">
-              {article.title}
-            </h2>
+          <CardComponent
+            _id = {article._id}
+            title = {article.title}
+            author = {article.author}
+            description = {article.description}
+            imageUrl = {article.imageUrl}
+            date = {article.date}
+          ></CardComponent>
           </a>
         </Link>
       ))}

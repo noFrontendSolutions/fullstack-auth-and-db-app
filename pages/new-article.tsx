@@ -19,7 +19,8 @@ const NewArticle: React.FC = () => {
 
   const router = useRouter();
   const email = user?.email;
-  const author = user?.name;
+  let author = user?.name;
+  if (author) author = author.trim()
   const newDate = createDateString();
 
   const data = {

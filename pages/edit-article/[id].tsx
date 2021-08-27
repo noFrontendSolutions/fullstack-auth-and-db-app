@@ -1,10 +1,12 @@
 import { findDBArticle, connectToDB } from "../../database/db-related";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/dist/client/router";
 import { useUser } from "@auth0/nextjs-auth0";
 import InputForm from "../../components/InputForm";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "node:querystring";
+import DOMPurify from "isomorphic-dompurify";
+import marked from "marked";
 
 interface Article {
   _id: string;
@@ -52,7 +54,7 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
     props.article.description
   );
   const [markdown, setMarkdown] = useState<string>(props.article.markdown);
-  const [imageUrl, setImageUrl] = useState(props.article.imageUrl)
+  const [imageUrl, setImageUrl] = useState<string>(props.article.imageUrl)
 
   const router = useRouter();
   const email = user?.email;
