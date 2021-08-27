@@ -5,8 +5,6 @@ import { useUser } from "@auth0/nextjs-auth0";
 import InputForm from "../../components/InputForm";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "node:querystring";
-import DOMPurify from "isomorphic-dompurify";
-import marked from "marked";
 
 interface Article {
   _id: string;
@@ -62,6 +60,7 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
 
   const data = { id, author, email, title, description, markdown, imageUrl };
 
+  console.log(data.imageUrl)
   const resubmitHandler = async () => {
     const response = await fetch("../api/request-handler", {
       method: "PUT",

@@ -51,6 +51,7 @@ export const updateDBArticle = async (id, article) => {
         title: article.title,
         description: article.description,
         markdown: article.markdown,
+        imageUrl: article.imageUrl
       },
     },
     { upsert: false }

@@ -62,7 +62,7 @@ const InputOutput: React.FC<Submission> = (props) => {
                   className="border p-2"
                   placeholder="Start Here..."
                   onChange={(e) => props.setImageUrl(e.target.value)}
-                  defaultValue={props.imageUrl ? props.title : ""}
+                  defaultValue={props.imageUrl ? props.imageUrl : ""}
                 ></input>
                 <label htmlFor="textarea">Description</label>
                 <textarea
