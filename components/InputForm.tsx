@@ -28,7 +28,7 @@ const InputOutput: React.FC<Submission> = (props) => {
   const user = useUser();
 
   return (
-    <div className="h-full p-4 grid grid-cols-2">
+    <div className="h-full p-4">
       {!user && (
         <div className="flex items-center justify-center text-2xl">
           YOU'RE NOT AUTHORIZED TO VIEW THIS CONTENT. LOGIN BEFORE YOU START
@@ -37,7 +37,7 @@ const InputOutput: React.FC<Submission> = (props) => {
       )}
       {user && (
         <>
-          <div className="">
+          <div className="fixed w-1/2 min-h-full">
             <div className="">
               <form className="flex flex-col border p-2">
                 <label htmlFor="input">Title</label>
@@ -98,12 +98,12 @@ const InputOutput: React.FC<Submission> = (props) => {
               )}
             </div>
           </div>
-          <div className="ml-4 h-2/3 flex-none">
+          <div className="mt-8 ml-4 min-h-full absolute right-8 min-w-1/2 ">
             <label htmlFor="input" className="font-bold">
               Markdown Preview
             </label>
             <div
-              className="h-full p-2 border overflow-scroll prose prose-sm sm:prose lg:prose-lg xl:prose-xl"
+              className="min-h-full ml-8 p-2 border prose prose-sm sm:prose lg:prose-lg xl:prose-xl"
               dangerouslySetInnerHTML={renderCleanMarkdown(props.markdown)} //There was no way to get ReactMarkdown to work in combination with getStaticProps (at least I think that this was causing the webpack error). So there's no way around "dangerouslySetInnerHTML". I hope the sanitize function (createCleanMArkdown()) does the trick.
             ></div>
           </div>

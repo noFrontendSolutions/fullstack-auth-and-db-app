@@ -20,6 +20,7 @@ const NewArticle: React.FC = () => {
   const router = useRouter();
   const email = user?.email;
   let author = user?.name;
+  let profileImage = user?.picture
   if (author) author = author.trim()
   const newDate = createDateString();
 
@@ -31,6 +32,7 @@ const NewArticle: React.FC = () => {
     markdown,
     date: newDate,
     imageUrl,
+    profileImage
   };
 
   const submitHandler = async () => {

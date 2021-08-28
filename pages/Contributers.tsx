@@ -2,6 +2,13 @@ import { GetStaticProps } from "next";
 import Link from "next/link";
 import { connectToDB } from "../database/db-related";
 
+interface Contributer {
+  name: string
+  email: string
+  profileImage: string
+}
+
+
 const urlIt = (string: string) => {
   string = string.trim().toLowerCase().split(" ").join("-");
   return string;
@@ -10,28 +17,36 @@ const urlIt = (string: string) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const allArticles = await connectToDB();
-  let authors: string[] = [];
+  let contributers: Contributer[] = [];
+  let emailArray: string[] = []
+
   allArticles.forEach((article) => {
-    if (!authors.includes(article.author)) authors.push(article.author);
+    if (!emailArray.includes(article.email)) {
+      emailArray.push(article.email);
+      let name = article.author
+      let email = article.email
+      let profileImage = article.profileImage
+      let contributer = { name, email, profileImage }
+      contributers.push(contributer)
+    }
   });
   return {
-    props: { authors },
+    props: { contributers },
   };
 };
 
-const Contributers: React.FC<{authors: string[]}> = (props) => {
-  let authors = props.authors
-  const urlChunks = authors.map(author => urlIt(author))
+const Contributers: React.FC<{contributers: Contributer[]}> = (props) => {
   return (
-    <div className="h-full">
-      {urlChunks.map((chunk:string, index: number) => (
-        <Link key={chunk} href={"/contributers/" + chunk}>
+    <div className="min-h-full p-8">
+      {props.contributers.map((contributer: Contributer) => (
+        <Link key={urlIt(contributer.name)} href={"/contributions/" + urlIt(contributer.name)}>
           <a>
-            <h2
-              className="text-blue-500 font-bold text-2xl text-center>"
-            >
-              {authors[index]}
-            </h2>
+            <div className = "m-4 p-4 flex items-center border rounded-xl shadow-lg hover:border-blue-500">
+            <img src = {contributer.profileImage ? contributer.profileImage : "./default-profile-img.png"} className = "rounded-full h-16 w-16"/>
+            <p className="ml-4 text-blue-500 font-bold text-2xl text-center>">
+              {contributer.name}
+            </p>
+            </div>
           </a>
         </Link>
       ))}
