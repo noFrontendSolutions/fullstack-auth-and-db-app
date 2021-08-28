@@ -103,7 +103,7 @@ const InputOutput: React.FC<Submission> = (props) => {
               Markdown Preview
             </label>
             <div
-              className="min-h-full ml-8 p-2 border prose prose-sm sm:prose lg:prose-lg xl:prose-xl"
+              className="h-full ml-8 p-2 prose prose-sm sm:prose lg:prose-lg xl:prose-xl"
               dangerouslySetInnerHTML={renderCleanMarkdown(props.markdown)} //There was no way to get ReactMarkdown to work in combination with getStaticProps (at least I think that this was causing the webpack error). So there's no way around "dangerouslySetInnerHTML". I hope the sanitize function (createCleanMArkdown()) does the trick.
             ></div>
           </div>

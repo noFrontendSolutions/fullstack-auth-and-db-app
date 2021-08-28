@@ -33,7 +33,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const Home: React.FC<{articles: ArticleCard[]}> = (props) => {
   return (
    
-    <div className="pt-16 min-h-full p-4 max-w-screen-2xl grid grid-cols-2 gap-8 self-center">
+    <div className="min-h-full p-4 w-full max-w-xl xl:max-w-screen-2xl sm:grid sm:grid-cols-1 gap-8 self-center xl:grid xl:grid-cols-2">
       {props.articles.map((article) => (
         <Link key={article._id} href={"/articles/" + article._id}>
           <a>

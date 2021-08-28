@@ -2,6 +2,7 @@ import { connectToDB, getDBAuthors, getAuthorsDBArticles } from "../../database/
 import Link from "next/link";
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { ParsedUrlQuery } from "node:querystring";
+import CardComponent from "../../components/CardComponent"
 
 interface ArticleCard {
   _id: string;
@@ -9,6 +10,7 @@ interface ArticleCard {
   title: string;
   description: string;
   date: string;
+  imageUrl: string;
 }
 
 interface AuthorSlug extends ParsedUrlQuery {
@@ -44,7 +46,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     author: article.author,
     title: article.title,
     description: article.description,
-    date: article.date
+    date: article.date,
+    imageUrl: article.imageUrl
   }
 })
   return {
@@ -53,14 +56,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 const Contributions: React.FC<{articles: ArticleCard[]}> = (props) => {
+  let cols = 1
+  if(props.articles.length > 1) cols = 2
   return (
-    <div className="min-h-full p-4 overflow-scroll">
+    <div className= {cols > 1 ? "min-h-full p-4 max-w-screen-2xl grid grid-cols-2 gap-8 self-center" : "min-h-full p-4 w-max self-center"} >
       {props.articles.map((article) => (
-        <Link key={article._id} href={"../articles/" + article._id}>
+        <Link key={article._id} href={"/articles/" + article._id}>
           <a>
-          <h2 className="text-blue-500 font-bold text-2xl text-center>">
-            {article.title}
-          </h2>
+          <CardComponent
+            _id = {article._id}
+            title = {article.title}
+            author = {article.author}
+            description = {article.description}
+            imageUrl = {article.imageUrl}
+            date = {article.date}
+          ></CardComponent>
           </a>
         </Link>
       ))}
