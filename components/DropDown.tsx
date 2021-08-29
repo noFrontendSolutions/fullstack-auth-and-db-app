@@ -14,7 +14,7 @@ const DropDown = (props: User) => {
 
   return (
     <>
-    <div className="p-1 mt-1 mr-2 absolute flex flex-col items-start z-50 top-20 right-0 w-96 border rounded-xl bg-gray-100 opacity-90">
+    <div className="p-1 mt-1 mr-2 absolute flex flex-col items-start z-50 top-20 right-0 w-96 border rounded-xl bg-gray-100 opacity-95">
       <p className="px-2 text-center text-lg font-bold w-full">
         {user ? user.name : ""}
       </p>

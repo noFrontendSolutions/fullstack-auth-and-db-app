@@ -15,7 +15,7 @@ const Header: React.FC = () => {
     {dropDown &&
         <div className = "inset-0 fixed z-40 opacity-0" onClick = {() => setDropDown(false)}></div>
     }
-    <nav className="mb-4 sm:mb-8 xl:mb-16 flex flex-row justify-between items-center px-2 py-2 sm:px-6 sm:py-2 text-gray-700 bg-gray-100 text-lg font-medium shadow-lg border-b border-gray-400">
+    <nav className="mb-4 sm:mb-8 flex flex-row justify-between items-center px-2 py-2 sm:px-6 sm:py-2 text-gray-700 bg-gray-100 text-lg font-medium shadow-lg border-b border-gray-400">
       <div className="flex">
         <Link href="/">
           <a
