@@ -42,14 +42,14 @@ const MyContributions: React.FC<{collection: ArticleCard[]}> = (props) => {
     let myArticles: ArticleCard[] = props.collection.filter(article => article.email === user?.email) //I'm identifying author's contributions via email because "user.name" (from auth0 user profile) could be saved differently (trimmed) in Mongo Atlas, hence "user.name === article.author" wouldn't hold anymore...hence you get zero matches  
 
     return (
-        <div className = "h-screen">
+        <div className = "h-screen grid grid-cols-1 self-center">
         { !user &&
         <div className = "h-full flex items-center justify-center text-3xl">
             YOU'RE NOT AUTHORIZED TO VIEW THIS CONTENT!            
         </div>
         }
         { user &&
-        <div className = "h-full relative flex flex-col items-center">
+        <div className = "h-full relative">
             {myArticles.map(article => (
                 <Link key = {article._id} href = {"/edit-article/" + article._id}>
                     <a>

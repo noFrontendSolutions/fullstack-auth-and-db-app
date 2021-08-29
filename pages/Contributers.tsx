@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Contributers: React.FC<{contributers: Contributer[]}> = (props) => {
   return (
-    <div className="min-h-full p-8">
+    <div className="min-h-full p-8 max-w-4xl">
       {props.contributers.map((contributer: Contributer) => (
         <Link key={urlIt(contributer.name)} href={"/contributions/" + urlIt(contributer.name)}>
           <a>
