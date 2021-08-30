@@ -1,6 +1,6 @@
 import { connectToDB } from "./api/database/db-related";
 import Link from "next/link";
-import { GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 import { useUser } from "@auth0/nextjs-auth0";
 
 interface ArticleCard {
@@ -13,7 +13,7 @@ interface ArticleCard {
   imageUrl: string;
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const data = await connectToDB();
   const collection: ArticleCard[] = data.map((article) => {
     const id = JSON.parse(JSON.stringify(article._id));

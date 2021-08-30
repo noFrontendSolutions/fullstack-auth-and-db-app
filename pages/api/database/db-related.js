@@ -47,7 +47,6 @@ export const updateDBArticle = async (id, article) => {
     { _id: objId },
     {
       $set: {
-        id_: objId,
         title: article.title,
         description: article.description,
         markdown: article.markdown,

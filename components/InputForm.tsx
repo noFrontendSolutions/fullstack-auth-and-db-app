@@ -84,7 +84,7 @@ const InputOutput: React.FC<Submission> = (props) => {
                     className="my-2 p-2 border-2 text-white bg-green-500 rounded-xl font-bold w-48"
                     onClick={props.resubmitHandler}
                   >
-                    RESUBMIT ARTICLE
+                    SAVE CHANGES
                   </button>
                   <button
                     className="my-2 p-2 border-2 text-white bg-red-500 rounded-xl font-bold w-48"

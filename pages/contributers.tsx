@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 import Link from "next/link";
 import { connectToDB } from "./api/database/db-related";
 
@@ -15,7 +15,7 @@ const urlIt = (string: string) => {
 };
 
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const allArticles = await connectToDB();
   let contributers: Contributer[] = [];
   let emailArray: string[] = []
