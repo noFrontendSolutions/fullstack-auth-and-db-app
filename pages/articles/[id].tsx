@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "node:querystring";
-import { findDBArticle, connectToDB } from "../../database/db-related";
+import { findDBArticle, connectToDB } from "../api/database/db-related";
 import {renderCleanMarkdown} from "../../components/InputForm"
 
 type Markdown = string;

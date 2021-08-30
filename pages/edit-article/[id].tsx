@@ -1,4 +1,4 @@
-import { findDBArticle, connectToDB } from "../../database/db-related";
+import { findDBArticle, connectToDB } from "../api/database/db-related";
 import { useState } from "react";
 import { useRouter } from "next/dist/client/router";
 import { useUser } from "@auth0/nextjs-auth0";

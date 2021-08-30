@@ -1,4 +1,4 @@
-import { connectToDB, getDBAuthors, getAuthorsDBArticles } from "../../database/db-related";
+import { connectToDB, getDBAuthors, getAuthorsDBArticles } from "../api/database/db-related";
 import Link from "next/link";
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { ParsedUrlQuery } from "node:querystring";

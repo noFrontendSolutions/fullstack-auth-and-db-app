@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
 import Link from "next/link";
-import { connectToDB } from "../database/db-related";
+import { connectToDB } from "./api/database/db-related";
 import CardComponent from "../components/CardComponent"
 
 interface ArticleCard {

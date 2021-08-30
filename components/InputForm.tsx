@@ -55,6 +55,7 @@ const InputOutput: React.FC<Submission> = (props) => {
                 ></input>
                 <label htmlFor="textarea" className = "font-bold text-gray-700">Card Description:</label>
                 <textarea
+                  spellCheck="false"
                   placeholder="Start Here..."
                   className="border h-48 p-2"
                   onChange={(e) => props.setDescription(e.target.value)}

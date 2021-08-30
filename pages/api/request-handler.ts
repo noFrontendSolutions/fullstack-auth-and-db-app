@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { submitArticleToDB } from "../../database/db-related";
-import { updateDBArticle } from "../../database/db-related";
-import { deleteDBArticle } from "../../database/db-related";
+import { submitArticleToDB } from "./database/db-related";
+import { updateDBArticle } from "./database/db-related";
+import { deleteDBArticle } from "./database/db-related";
 
 const requestHandler = async (req: any, res: any) => {
   if (req.method === "POST") {

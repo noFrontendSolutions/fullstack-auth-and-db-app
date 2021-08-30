@@ -1,4 +1,4 @@
-import { connectToDB } from "../database/db-related";
+import { connectToDB } from "./api/database/db-related";
 import Link from "next/link";
 import { GetStaticProps } from "next";
 import { useUser } from "@auth0/nextjs-auth0";
