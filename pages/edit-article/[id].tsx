@@ -60,18 +60,25 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
 
   const data = { id, author, email, title, description, markdown, imageUrl };
 
-  console.log(data.imageUrl)
+  
   const resubmitHandler = async () => {
-    const response = await fetch("../api/request-handler", {
+    await fetch("../api/request-handler", {
       method: "PUT",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
-    });
-    router.push("/my-contributions");
+    }).then(function(response) {
+      if (!response.ok) {
+          throw Error(response.statusText);
+      }
+      return response;
+  })  .then(() => router.push("/"))
+      .catch(error => {
+        console.log(error)
+        router.push("/")});
   };
 
   const deleteHandler = async () => {
-    const response = await fetch("../api/request-handler", {
+    await fetch("../api/request-handler", {
       method: "DELETE",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
