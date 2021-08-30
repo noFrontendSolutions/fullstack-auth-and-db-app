@@ -36,8 +36,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const {id} = context.params as IdSlug;  //is the same as "const id = context.params.id" if using JS (but doesn't work like that using TS)
-  const data = await findDBArticle(id);
-  const article = JSON.parse(JSON.stringify(data[0])); //found no way around sending the aricle from the db as an array with one element
+  const [data] = await findDBArticle(id);
+  const article = JSON.parse(JSON.stringify(data)); //found no way around sending the aricle from the db as an array with one element
   return {
     props: { article },
   };

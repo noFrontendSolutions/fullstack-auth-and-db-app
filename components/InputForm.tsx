@@ -61,7 +61,7 @@ const InputOutput: React.FC<Submission> = (props) => {
                   onChange={(e) => props.setDescription(e.target.value)}
                   defaultValue={props.description ? props.description : ""}
                 ></textarea>
-                <label htmlFor="textarea" className = "font-bold text-gray-700">Article Content (Markdown):</label>
+                <label htmlFor="textarea" className = "font-bold text-gray-700 mt-4">Article Content (Markdown):</label>
                 <textarea
                   spellCheck="false"
                   placeholder=""
