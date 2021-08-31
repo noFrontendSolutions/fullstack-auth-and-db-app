@@ -6,20 +6,20 @@ import { deleteDBArticle } from "./database/db-related";
 const requestHandler = async (req: any, res: any) => {
   if (req.method === "POST") {
     const article = req.body;
-    submitArticleToDB(article);
+    await submitArticleToDB(article);
     res.status(201).json({ message: "Your article has been uploaded!" });
   }
   if (req.method === "PUT") {
     const article = req.body;
     const id = article.id;
-    updateDBArticle(id, article);
+    await updateDBArticle(id, article);
     res.status(204).json({ message: "Your article has been updated!" });
   }
 
   if (req.method === "DELETE") {
     const article = req.body;
     const id = article.id;
-    deleteDBArticle(id, article);
+    await deleteDBArticle(id, article);
     res.status(204).json({ message: "Your article has been deleted!" });
   }
 };
