@@ -16,11 +16,12 @@ const NewArticle: React.FC = () => {
   const [imageUrl, setImageUrl] = useState("");
 
   const { user } = useUser();
-
   const router = useRouter();
+  
   const email = user?.email;
   let author = user?.name;
   let profileImage = user?.picture
+
   if (author) author = author.trim()
   const newDate = createDateString();
 
