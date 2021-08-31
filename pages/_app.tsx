@@ -16,6 +16,7 @@ interface Article {
 
 let articles: Article[] = []
 const DataContext = createContext(articles)
+//context provider obviously does nothing at the moment...Might come back to it later!
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

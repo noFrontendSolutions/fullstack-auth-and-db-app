@@ -8,12 +8,10 @@ interface Contributer {
   profileImage: string
 }
 
-
 const urlIt = (string: string) => {
   string = string.trim().toLowerCase().split(" ").join("-");
   return string;
 };
-
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const allArticles = await connectToDB();

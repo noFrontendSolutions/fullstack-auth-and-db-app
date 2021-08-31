@@ -1,8 +1,7 @@
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { connectToDB } from "./api/database/db-related";
 import CardComponent from "../components/CardComponent"
-import {useEffect, useContext} from "react"
 
 interface ArticleCard {
   _id: string
@@ -33,9 +32,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const Home: React.FC<{articles: ArticleCard[]}> = (props) => {
 
-
   return (
-   
     <div className="min-h-full p-4 w-full max-w-xl xl:max-w-screen-2xl sm:grid sm:grid-cols-1 gap-8 self-center xl:grid xl:grid-cols-2">
       {props.articles.map((article) => (
         <Link key={article._id} href={"/articles/" + article._id}>

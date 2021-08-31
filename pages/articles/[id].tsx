@@ -1,6 +1,6 @@
-import { GetStaticPaths, GetStaticProps } from "next";
+//import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "node:querystring";
-import { findDBArticle, connectToDB } from "../api/database/db-related";
+//import { findDBArticle, connectToDB } from "../api/database/db-related";
 import {renderCleanMarkdown} from "../../components/InputForm"
 import {useRouter} from "next/router"
 import {useEffect, useState} from "react"
@@ -20,7 +20,6 @@ const fetchMarkdown = async (id: string)  => {
   })
   let [data] = await response.json()
   markdown = data.markdown
-  //console.log(markdown)
 return markdown
 }
 
@@ -49,7 +48,7 @@ export const getStaticProps:GetStaticProps = async (context) => {
 };
 */
 
-const Article: React.FC<{ markdown: Markdown }> = (props) => {
+const Article: React.FC<{ markdown: Markdown }> = (props) => { //although props is not being used I'm leaving it as an argument, in case I'll find a use for getStaticPaths / getStaticProps
   const [markdown, setMarkdown] = useState<Markdown>("")
   const router = useRouter()
  
@@ -59,9 +58,6 @@ const Article: React.FC<{ markdown: Markdown }> = (props) => {
       setMarkdown(await fetchMarkdown(articleId))
     })() 
   }, [])
-  //let markdown = fetchMarkdown(articleId) 
-  //console.log(markdown)
-
 
   return (
     <div

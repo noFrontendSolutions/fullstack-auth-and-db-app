@@ -1,7 +1,9 @@
 import { connectToDB } from "./api/database/db-related";
 import Link from "next/link";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetServerSideProps} from "next";
 import { useUser } from "@auth0/nextjs-auth0";
+import {useRouter} from "next/router"
+
 
 interface ArticleCard {
   _id: string;
@@ -12,6 +14,7 @@ interface ArticleCard {
   date: string;
   imageUrl: string;
 }
+
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const data = await connectToDB();
@@ -35,6 +38,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const MyContributions: React.FC<{ collection: ArticleCard[] }> = (props) => {
   const { user } = useUser();
+  
+
   let myArticles: ArticleCard[] = props.collection.filter(
     (article) => article.email === user?.email
   );
@@ -43,7 +48,7 @@ const MyContributions: React.FC<{ collection: ArticleCard[] }> = (props) => {
     <div className="h-screen grid grid-cols-1 self-center">
       {!user && (
         <div className="h-full flex items-center justify-center text-3xl">
-          YOU'RE NOT AUTHORIZED TO VIEW THIS CONTENT!
+          YOU HAVE TO BE LOGGED IN BEFORE YOU'RE ALLOWED TO VIEW THIS CONTENT!
         </div>
       )}
       {user && (

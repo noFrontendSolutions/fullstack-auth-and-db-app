@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/dist/client/router";
 import { useUser } from "@auth0/nextjs-auth0";
 import InputOutput from "../components/InputForm";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 const createDateString = (): string => {
   const date = new Date();
@@ -67,3 +68,5 @@ const NewArticle: React.FC = () => {
 };
 
 export default NewArticle;
+
+export const getServerSideProps = withPageAuthRequired()

@@ -1,10 +1,11 @@
-import { findDBArticle, connectToDB } from "../api/database/db-related";
+//import { findDBArticle, connectToDB } from "../api/database/db-related";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 import { useUser } from "@auth0/nextjs-auth0";
 import InputForm from "../../components/InputForm";
-import { GetStaticPaths, GetStaticProps } from "next";
+//import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "node:querystring";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 interface Article {
   _id: string;
@@ -67,15 +68,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
 */
 
 
-const EditArticle: React.FC<{ article: Article }> = (props) => {
+const EditArticle: React.FC<{ article: Article }> = (props) => { //although props is not being used I'm leaving it as an argument, in case I'll find a use for getStaticPaths / getStaticProps
   let article = {} as Article
   const router = useRouter();
   
-  const [title, setTitle] = useState<string>(article.title);
-  const [description, setDescription] = useState<string>(article.description);
-  const [markdown, setMarkdown] = useState<string>(article.markdown);
-  const [imageUrl, setImageUrl] = useState<string>(article.imageUrl)
-  const [id, setId] = useState<string>(article._id)
+  const [title, setTitle] = useState(article.title);
+  const [description, setDescription] = useState(article.description);
+  const [markdown, setMarkdown] = useState(article.markdown);
+  const [imageUrl, setImageUrl] = useState(article.imageUrl)
+  const [id, setId] = useState(article._id)
 
   useEffect(() => {
     (async ()=> {
@@ -86,7 +87,6 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
       setImageUrl(article.imageUrl)
       setMarkdown(article.markdown)
       setId(article._id)
-      //console.log(id)
     })()
   }, [])
   
@@ -146,3 +146,4 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
 };
 
 export default EditArticle;
+export const getServerSideProps = withPageAuthRequired()

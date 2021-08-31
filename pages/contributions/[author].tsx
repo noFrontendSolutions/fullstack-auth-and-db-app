@@ -1,10 +1,6 @@
-import {
-  connectToDB,
-  getDBAuthors,
-  getAuthorsDBArticles,
-} from "../api/database/db-related";
+//import { connectToDB, getDBAuthors, getAuthorsDBArticles} from "../api/database/db-related";
 import Link from "next/link";
-import { GetStaticProps, GetStaticPaths } from "next";
+//import { GetStaticProps, GetStaticPaths } from "next";
 import { ParsedUrlQuery } from "node:querystring";
 import CardComponent from "../../components/CardComponent";
 import { useRouter } from "next/router";
@@ -29,9 +25,7 @@ export const urlIt = (string: string) => {
 };
 
 export const urlToName = (url: any) => {
-  url = url
-    .split("-")
-    .map((part: string) => {
+  url = url.split("-").map((part: string) => {
       part = part.toLowerCase();
       part = part.charAt(0).toUpperCase() + part.slice(1);
       return part;
@@ -96,47 +90,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 */
 
-const Contributions: React.FC<{ articles: ArticleCard[] }> = (props) => {
+const Contributions: React.FC<{ articles: ArticleCard[] }> = (props) => { //although props is not being used I'm leaving it as an argument, in case I'll find a use for getStaticPaths / getStaticProps
   const [contributions, setContributions] = useState<ArticleCard[]>([]);
-  //const [query, setQuery] = useState<string>("")
-  //const [author, setAuthor] = useState<string>("")
   const router = useRouter();
-  //const query: any = router.query.author
-  //let author = urlToName(query)
-
-  /*
-  useEffect(() => {
-    let url: any = router.query.author
-    let author = urlToName(url)
-    console.log(url)
-    setQuery(url);
-    setAuthor(author)
-    console.log(query)
-  }, [])
-*/
-
+  
   useEffect(() => {
     (async () => {
       let query: any = router.query.author;
-      //console.log(query);
       let author = urlToName(query);
       setContributions(await fetchContributions(author));
-      //const data = await fetchContributions(author)
     })();
   }, []);
-  //console.log(contributions)
-  //console.log(fetchedArticles)
 
-  let cols = 1;
-  if (contributions.length > 1) cols = 2;
+ 
   return (
-    <div
-      className={
-        cols > 1
-          ? "min-h-full p-4 max-w-screen-2xl grid grid-cols-2 gap-8 self-center"
-          : "min-h-full p-4 w-max self-center"
-      }
-    >
+    <div className= "min-h-full p-4 w-full max-w-xl xl:max-w-screen-2xl sm:grid sm:grid-cols-1 gap-8 self-center xl:grid xl:grid-cols-2">
       {contributions.map((article) => (
         <Link key={article._id} href={"/articles/" + article._id}>
           <a>

@@ -6,7 +6,6 @@ const handleArticle = async (req: any, res: any) => {
       const articleId = req.body.id
       const article = await findDBArticle(articleId);
       res.send(article)
-      //res.status(201).json({ message: "Your article has been uploaded!" });
     }
 }
 
