@@ -70,8 +70,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 const EditArticle: React.FC<{ article: Article }> = (props) => {
   let article = {} as Article
   const router = useRouter();
-  const articleId: any = router.query.id
-
+  
   const [title, setTitle] = useState<string>(article.title);
   const [description, setDescription] = useState<string>(article.description);
   const [markdown, setMarkdown] = useState<string>(article.markdown);
@@ -80,6 +79,7 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
 
   useEffect(() => {
     (async ()=> {
+      const articleId: any = router.query.id
       article = await fetchArticle(articleId)
       setTitle(article.title)
       setDescription(article.description)
@@ -90,15 +90,9 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
     })()
   }, [])
   
-  const { user } = useUser();
-
-  
-
-  
-  
+  const { user } = useUser()
   const email = user?.email;
   const author = user?.name;
-
   const data = { id, author, email, title, description, markdown, imageUrl };
   
   
@@ -123,8 +117,15 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {
       method: "DELETE",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
-    });
-    router.push("/my-contributions");
+    }).then(function(response) {
+      if (!response.ok) {
+          throw Error(response.statusText);
+      }
+      return response;
+  })  .then(() => router.push("/"))
+      .catch(error => {
+        console.log(error)
+        router.push("/my-contributions")});
   };
 
   return (

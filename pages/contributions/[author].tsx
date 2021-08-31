@@ -1,10 +1,14 @@
-import { connectToDB, getDBAuthors, getAuthorsDBArticles } from "../api/database/db-related";
+import {
+  connectToDB,
+  getDBAuthors,
+  getAuthorsDBArticles,
+} from "../api/database/db-related";
 import Link from "next/link";
-import { GetStaticProps, GetStaticPaths } from 'next'
+import { GetStaticProps, GetStaticPaths } from "next";
 import { ParsedUrlQuery } from "node:querystring";
-import CardComponent from "../../components/CardComponent"
-import {useRouter} from "next/router"
-import {useEffect, useState} from "react"
+import CardComponent from "../../components/CardComponent";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 interface ArticleCard {
   _id: string;
@@ -16,44 +20,46 @@ interface ArticleCard {
 }
 
 interface AuthorSlug extends ParsedUrlQuery {
-  slug: string
+  slug: string;
 }
 
-const urlIt = (string: string) => {
+export const urlIt = (string: string) => {
   string = string.trim().toLowerCase().split(" ").join("-");
   return string;
 };
 
-const urlToName = (url: string) => {
-  url = url.split("-").map((part: string) => {
-    part = part.toLowerCase()
-    part = part.charAt(0).toUpperCase() + part.slice(1)
-    return part
-  }).join(' ')
-  return url
-}
+export const urlToName = (url: any) => {
+  url = url
+    .split("-")
+    .map((part: string) => {
+      part = part.toLowerCase();
+      part = part.charAt(0).toUpperCase() + part.slice(1);
+      return part;
+    })
+    .join(" ");
+  return url;
+};
 
-const fetchContributions = async (author: string)  => {
+const fetchContributions = async (author: string) => {
   const response = await fetch("../api/handle-contributions", {
     method: "POST",
-    body: JSON.stringify({author: author}),
+    body: JSON.stringify({ author: author }),
     headers: { "Content-Type": "application/json" },
-  })
-  let data = await response.json()
-  let contributions: ArticleCard[] = []
-  contributions  = data.map((article: ArticleCard) => {
+  });
+  let data = await response.json();
+  let contributions: ArticleCard[] = [];
+  contributions = data.map((article: ArticleCard) => {
     return {
-    _id: article._id.toString(),
-    author: article.author,
-    title: article.title,
-    description: article.description,
-    date: article.date,
-    imageUrl: article.imageUrl
-  }
-})
-return contributions
-}
-
+      _id: article._id.toString(),
+      author: article.author,
+      title: article.title,
+      description: article.description,
+      date: article.date,
+      imageUrl: article.imageUrl,
+    };
+  });
+  return contributions;
+};
 
 /*
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -90,37 +96,58 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 */
 
-const Contributions: React.FC<{articles: ArticleCard[]}> = (props) => {
-  const [contributions, setContributions] = useState<ArticleCard[]>([])
-  const router = useRouter()
-  const query: any = router.query.author
-  let author = urlToName(query)
+const Contributions: React.FC<{ articles: ArticleCard[] }> = (props) => {
+  const [contributions, setContributions] = useState<ArticleCard[]>([]);
+  //const [query, setQuery] = useState<string>("")
+  //const [author, setAuthor] = useState<string>("")
+  const router = useRouter();
+  //const query: any = router.query.author
+  //let author = urlToName(query)
+
+  /*
+  useEffect(() => {
+    let url: any = router.query.author
+    let author = urlToName(url)
+    console.log(url)
+    setQuery(url);
+    setAuthor(author)
+    console.log(query)
+  }, [])
+*/
 
   useEffect(() => {
-  (async () => {
-    setContributions(await fetchContributions(author))
-    //const data = await fetchContributions(author)
-    
-  })()
-  },[])
+    (async () => {
+      let query: any = router.query.author;
+      //console.log(query);
+      let author = urlToName(query);
+      setContributions(await fetchContributions(author));
+      //const data = await fetchContributions(author)
+    })();
+  }, []);
   //console.log(contributions)
   //console.log(fetchedArticles)
 
-  let cols = 1
-  if(contributions.length > 1) cols = 2
+  let cols = 1;
+  if (contributions.length > 1) cols = 2;
   return (
-    <div className= {cols > 1 ? "min-h-full p-4 max-w-screen-2xl grid grid-cols-2 gap-8 self-center" : "min-h-full p-4 w-max self-center"} >
+    <div
+      className={
+        cols > 1
+          ? "min-h-full p-4 max-w-screen-2xl grid grid-cols-2 gap-8 self-center"
+          : "min-h-full p-4 w-max self-center"
+      }
+    >
       {contributions.map((article) => (
         <Link key={article._id} href={"/articles/" + article._id}>
           <a>
-          <CardComponent
-            _id = {article._id}
-            title = {article.title}
-            author = {article.author}
-            description = {article.description}
-            imageUrl = {article.imageUrl}
-            date = {article.date}
-          ></CardComponent>
+            <CardComponent
+              _id={article._id}
+              title={article.title}
+              author={article.author}
+              description={article.description}
+              imageUrl={article.imageUrl}
+              date={article.date}
+            ></CardComponent>
           </a>
         </Link>
       ))}

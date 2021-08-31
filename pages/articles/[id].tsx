@@ -52,10 +52,12 @@ export const getStaticProps:GetStaticProps = async (context) => {
 const Article: React.FC<{ markdown: Markdown }> = (props) => {
   const [markdown, setMarkdown] = useState<Markdown>("")
   const router = useRouter()
-  const articleId: any = router.query.id
-  
+ 
   useEffect( () => {
-    (async () => setMarkdown(await fetchMarkdown(articleId)))() 
+    (async () => {
+      const articleId: any = router.query.id
+      setMarkdown(await fetchMarkdown(articleId))
+    })() 
   }, [])
   //let markdown = fetchMarkdown(articleId) 
   //console.log(markdown)
