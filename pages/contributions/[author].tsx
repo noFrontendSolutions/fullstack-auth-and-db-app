@@ -90,7 +90,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 */
 
-const Contributions: React.FC<{ articles: ArticleCard[] }> = (props) => { //although props is not being used I'm leaving it as an argument, in case I'll find a use for getStaticPaths / getStaticProps
+const Contributions: React.FC<{ articles: ArticleCard[] }> = (props) => { //I'm not using props anymore but I leave it in, in case I'll find a use for getStaticPaths / getStaticProps
   const [contributions, setContributions] = useState<ArticleCard[]>([]);
   const router = useRouter();
   

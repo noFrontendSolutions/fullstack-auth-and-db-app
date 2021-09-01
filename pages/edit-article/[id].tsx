@@ -68,7 +68,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 */
 
 
-const EditArticle: React.FC<{ article: Article }> = (props) => { //although props is not being used I'm leaving it as an argument, in case I'll find a use for getStaticPaths / getStaticProps
+const EditArticle: React.FC<{ article: Article }> = (props) => {//I'm not using props anymore but I leave it in, in case I'll find a use for getStaticPaths / getStaticProps
   let article = {} as Article
   const router = useRouter();
   

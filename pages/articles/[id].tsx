@@ -48,7 +48,7 @@ export const getStaticProps:GetStaticProps = async (context) => {
 };
 */
 
-const Article: React.FC<{ markdown: Markdown }> = (props) => { //although props is not being used I'm leaving it as an argument, in case I'll find a use for getStaticPaths / getStaticProps
+const Article: React.FC<{ markdown: Markdown }> = (props) => { //I'm not using props anymore but I leave it in, in case I'll find a use for getStaticPaths / getStaticProps
   const [markdown, setMarkdown] = useState<Markdown>("")
   const router = useRouter()
  
