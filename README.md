@@ -8,7 +8,7 @@ This project is an fullstack exercise, which was given to me in a course I've pa
 
 I've used **Next.js** to build the application. For the authentication part, I've used **auth0**, which works excellent in combination with **Next**. The user data is handled with MongoDB Atlas. For the styles I've used **Tailwind CSS**, like always.
 
-So that you not get greeted by an empty page, I'm temporarly using the app to promote my guthub projects. Here is a link:
+I'm temporarly using the app to promote my github projects in order to make it a bit more appealing to the eyes. Here is a link:
 
 https://fullstack-auth-and-db-app-nofrontendsolutions.vercel.app
 
