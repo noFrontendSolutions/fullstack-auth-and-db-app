@@ -1,4 +1,4 @@
-# fullstack-db-and-auth-app
+# fullstack-auth-and-db-app
 
 ---
 
@@ -32,5 +32,3 @@ Why am I writing this if it's all mentioned in the official **Next.js** document
 My point being that you might be better off using none of the above functions. Use the tools **React** already provides to you. *getServerSideProps* will run on every request, which might be something you don't want, since it causes overlay. 
 
 A more flexible and efficient solution might be to use the *fetch API* in combination with the useEffect hook. *Fetch* data conditionally, so that you don't fetch on every request, but only if, for instance, a certain global state changes, which in turn could be provided to your application using the useContext hook together with a context provider. I guess **caching** data on the client side is the keyword here, which you can't do with the *getServerSideProps* function. 
-
-
