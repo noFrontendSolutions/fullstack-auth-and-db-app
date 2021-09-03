@@ -6,7 +6,9 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      animation: ['animate-spin'],
+    },
   },
   plugins: [require('@tailwindcss/typography')],
 }

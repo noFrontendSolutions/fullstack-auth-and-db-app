@@ -71,7 +71,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 const EditArticle: React.FC<{ article: Article }> = (props) => {//I'm not using props anymore but I leave it in, in case I'll find a use for getStaticPaths / getStaticProps
   let article = {} as Article
   const router = useRouter();
-  
+  const [loading, setLoading] = useState(false)
   const [title, setTitle] = useState(article.title);
   const [description, setDescription] = useState(article.description);
   const [markdown, setMarkdown] = useState(article.markdown);
@@ -97,6 +97,7 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {//I'm not using 
   
   
   const resubmitHandler = async () => {
+    setLoading(true)
     await fetch("../api/request-handler", {
       method: "PUT",
       body: JSON.stringify(data),
@@ -113,6 +114,7 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {//I'm not using 
   };
 
   const deleteHandler = async () => {
+    setLoading(true)
     await fetch("../api/request-handler", {
       method: "DELETE",
       body: JSON.stringify(data),
@@ -130,11 +132,13 @@ const EditArticle: React.FC<{ article: Article }> = (props) => {//I'm not using 
 
   return (
     <InputForm
+      loading = {loading}
       edit={true}
       title={title}
       description={description}
       markdown={markdown}
       imageUrl={imageUrl}
+      setLoading = {setLoading}
       resubmitHandler={resubmitHandler}
       deleteHandler={deleteHandler}
       setTitle={setTitle}

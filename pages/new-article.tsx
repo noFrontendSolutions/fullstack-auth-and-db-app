@@ -15,6 +15,7 @@ const NewArticle: React.FC = () => {
   const [description, setDescription] = useState("");
   const [markdown, setMarkdown] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const { user } = useUser();
   const router = useRouter();
@@ -38,6 +39,7 @@ const NewArticle: React.FC = () => {
   };
 
   const submitHandler = async () => {
+    setLoading(true)
     await fetch("./api/request-handler", {
       method: "POST",
       body: JSON.stringify(data),
@@ -47,21 +49,26 @@ const NewArticle: React.FC = () => {
           throw Error(response.statusText);
       }
       return response;
-  })  .then(() => router.push("/"))
+  })  .then(() => {
+        router.push("/")
+      })
       .catch(error => {
         console.log(error)
-        router.push("/")});
+        router.push("/")
+      })
   }
   return (
     <>
       <InputOutput
         edit={false}
+        loading = {loading}
         setTitle={setTitle}
         setDescription={setDescription}
         setMarkdown={setMarkdown}
         submitHandler={submitHandler}
         markdown={markdown}
         setImageUrl={setImageUrl}
+        setLoading={setLoading}
       />
     </>
   );
