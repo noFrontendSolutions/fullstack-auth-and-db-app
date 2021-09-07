@@ -2,7 +2,7 @@
 
 ---
 
-This project is an fullstack exercise, which was given to me in a course I've participated in. The task was to create a blogging page for multiple users, through which they're able to login and create an article or blog-entry, which then shows up on the index page of the app and gets stored on a database.
+This project is an fullstack exercise, which was given to me in a course I've participated in. The task was to create a blogging page for multiple users, which enables the user to login and create an article or blog-entry, which then shows up on the index page of the app and gets stored on a database.
 
 ![](https://www.dropbox.com/s/zt7rg27knn9koeq/blogger-app.png?raw=1)
 
@@ -19,7 +19,7 @@ https://fullstack-auth-and-db-app-nofrontendsolutions.vercel.app
 
 Don't do like me and use **getStaticProps** and/or **getStaticPaths** if the data you're loading isn't static. Now that might sound obvious; however, if you're using these two functions during development like me, they behave diffenrently. During development they get called on every request, giving me a wrong impression on how to use them properly. 
 
-What I did was that I used **getStaticProps/Paths** to connect to my DB and load the initial data and create the intital paths, but also used these functions to load the newly dynamically created data by a user, together with the necessary paths. 
+So I used **getStaticProps/Paths** to connect to my DB and load the initial data and create the intital paths, but also used these functions to load the newly dynamically created data by a user, together with the necessary paths. 
 That worked fine during development; however, once I built and deployed the app to **Vercel**, although the application ran, the state of the data never changed. Newly created data by a user never got picked up on after it was sent to the database, not even after a hard refresh.
 
 Running at **build time** means during a rebuild of the whole application. Only if I redeployed the app, the newly created data got picked up on and showed up on the screen...which forced me to rewrite the whole application.
