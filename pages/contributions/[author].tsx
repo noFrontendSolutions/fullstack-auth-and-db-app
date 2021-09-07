@@ -1,7 +1,4 @@
-//import { connectToDB, getDBAuthors, getAuthorsDBArticles} from "../api/database/db-related";
 import Link from "next/link";
-//import { GetStaticProps, GetStaticPaths } from "next";
-import { ParsedUrlQuery } from "node:querystring";
 import CardComponent from "../../components/CardComponent";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -15,9 +12,6 @@ interface ArticleCard {
   imageUrl: string;
 }
 
-interface AuthorSlug extends ParsedUrlQuery {
-  slug: string;
-}
 
 export const urlIt = (string: string) => {
   string = string.trim().toLowerCase().split(" ").join("-");
@@ -55,42 +49,8 @@ const fetchContributions = async (author: string) => {
   return contributions;
 };
 
-/*
-export const getStaticPaths: GetStaticPaths = async () => {
-  let authors: string[] = await getDBAuthors()
-  const paths = authors!.map((author) => {
-    return {
-      params: { author: urlIt(author)}
-    };
-  });
-  return {
-    paths,
-    fallback: false,
-  };
-};
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const {author} = context.params as AuthorSlug  //is the same as "const authorSlug = context.params.author" if using JS (but doesn't work like that using TS)
- 
-  const data = await connectToDB();
-  const contributions = data.filter(article => author === urlIt(article.author))
-  let articles = contributions.map( (article): ArticleCard => {
-    return {
-    _id: article._id.toString(),
-    author: article.author,
-    title: article.title,
-    description: article.description,
-    date: article.date,
-    imageUrl: article.imageUrl
-  }
-})
-  return {
-    props: { articles },
-  };
-};
-*/
-
-const Contributions: React.FC<{ articles: ArticleCard[] }> = (props) => { //I'm not using props anymore but I leave it in, in case I'll find a use for getStaticPaths / getStaticProps
+const Contributions: React.FC = () => {
   const [contributions, setContributions] = useState<ArticleCard[]>([]);
   const router = useRouter();
   

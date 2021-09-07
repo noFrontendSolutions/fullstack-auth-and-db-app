@@ -12,7 +12,7 @@ interface ArticleCard {
 const CardComponent: React.FC<ArticleCard> = (props) => {
     
     return(
-        <div className = "mb-4 flex p-4 shadow-xl rounded-xl h-48 sm:h-64 relative hover:border hover:border-indigo-500">
+        <div className = "mb-4 flex p-4 shadow-xl rounded-xl h-48 sm:h-64 relative border hover:border-indigo-500">
             <img src = {props.imageUrl ? props.imageUrl : "/placeholder.jpg"} className = "w-1/2 object-cover rounded-l-xl"></img>
             <div className = "w-1/2 rounded-r-xl p-4">
                 <h1 className = "font-bold text-md sm:text-md">{props.title}</h1>

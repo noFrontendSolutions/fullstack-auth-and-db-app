@@ -36,13 +36,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
+
 const MyContributions: React.FC<{ collection: ArticleCard[] }> = (props) => {
   const { user } = useUser();
-  
-
-  let myArticles: ArticleCard[] = props.collection.filter(
-    (article) => article.email === user?.email
-  );
+  let myArticles = props.collection.filter(article => article.email === user?.email)
 
   return (
     <div className="h-screen grid grid-cols-1 self-center">

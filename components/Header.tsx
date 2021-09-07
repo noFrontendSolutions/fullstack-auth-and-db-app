@@ -43,7 +43,7 @@ const Header: React.FC = () => {
       {!user && (
         <Link href="/api/auth/login">
           <a className="">
-              <button className="px-4 py-2 font-medium text-lg text-center border-2 border-gray-300 rounded-xl hover:border-indigo-500 hover:border-2">
+              <button className="px-4 py-2 font-medium text-lg text-center border-2 border-gray-300 rounded-xl hover:border-indigo-500 hover:border-2 hover:text-indigo-500">
                 Log In / Sign Up
               </button>
           </a>

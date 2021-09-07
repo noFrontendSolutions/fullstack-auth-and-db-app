@@ -1,10 +1,7 @@
-//import { findDBArticle, connectToDB } from "../api/database/db-related";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useUser } from "@auth0/nextjs-auth0";
 import InputForm from "../../components/InputForm";
-//import { GetStaticPaths, GetStaticProps } from "next";
-import { ParsedUrlQuery } from "node:querystring";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 interface Article {
@@ -18,9 +15,6 @@ interface Article {
   imageUrl: string
 }
 
-interface IdSlug extends ParsedUrlQuery {
-  slug: string
-}
 
 const fetchArticle = async (id: string) => {
   const response = await fetch("../api/handle-article", {
@@ -42,33 +36,7 @@ const fetchArticle = async (id: string) => {
 }
 
 
-/*
-export const getStaticPaths: GetStaticPaths = async () => {
-  const allArticles = await connectToDB();
-  const paths = allArticles.map((article) => {
-    return {
-      params: { id: article._id.toString() },
-    };
-  });
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const {id} = context.params as IdSlug;  //is the same as "const id = context.params.id" if using JS (but doesn't work like that using TS)
-  const [data] = await findDBArticle(id);
-  const article = JSON.parse(JSON.stringify(data)); //found no way around sending the aricle from the db as an array with one element
-  return {
-    props: { article },
-  };
-};
-*/
-
-
-const EditArticle: React.FC<{ article: Article }> = (props) => {//I'm not using props anymore but I leave it in, in case I'll find a use for getStaticPaths / getStaticProps
+const EditArticle: React.FC = () => {
   let article = {} as Article
   const router = useRouter();
   const [loading, setLoading] = useState(false)
