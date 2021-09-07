@@ -22,4 +22,4 @@ Don't do like me and use **getStaticProps** and/or **getStaticPaths** if the dat
 What I did was that I used **getStaticProps/Paths** to connect to my DB and load the initial data and create the intital paths, but also used these functions to load the newly dynamically created data by a user, together with the necessary paths. 
 That worked fine during development; however, once I built and deployed the app to **Vercel**, although the application ran, the state of the data never changed. Newly created data by a user never got picked up on after it was sent to the database, not even after a hard refresh.
 
-Running at **build time** means during a rebuild of the whole application. Only if I redeployed the app, the newly created data got picked up on and showed up on the screen...which forced me rewrite the whole application.
+Running at **build time** means during a rebuild of the whole application. Only if I redeployed the app, the newly created data got picked up on and showed up on the screen...which forced me to rewrite the whole application.
