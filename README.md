@@ -8,7 +8,7 @@ This project is an fullstack exercise, which was given to me in a course I've pa
 
 I've used **Next.js** to build the application. For the authentication part, I've used **auth0**, **MongoDB Atlas** to store the data, and for the styles I've used **Tailwind CSS**, like always. As a special feature, the blogs/articles can be written in **markdown**. 
 
-I'm temporarly using the app to promote my github projects in order to make it a bit more appealing to the eyes. Nevertheless, feel free to play around with it: write an article or try a php injection (which technically shouldn't work). You can delete your contributions afterwards and leave no traces. I'm not storing your user in separate DB collection. Here is a link:
+I'm temporarly using the app to promote my github projects in order to make it a bit more appealing to the eyes. Nevertheless, feel free to play around with it: write an article or try a php injection (which technically shouldn't work). You can delete your contributions afterwards and leave no traces. I'm not storing your user data in a separate DB collection. Here is a link:
 
 https://fullstack-auth-and-db-app-nofrontendsolutions.vercel.app
 

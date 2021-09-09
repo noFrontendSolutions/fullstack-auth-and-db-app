@@ -70,7 +70,8 @@ const EditArticle: React.FC = () => {
       method: "PUT",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
-    }).then(function(response) {
+    })
+    .then(function(response) {
       if (!response.ok) {
           throw Error(response.statusText);
       }
