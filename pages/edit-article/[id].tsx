@@ -67,12 +67,7 @@ const EditArticle: React.FC = () => {
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
     })
-    .then(function(response) {
-      if (!response.ok) {
-          throw Error(response.statusText);
-      }
-      return response;
-  })  .then(() => router.push("/"))
+      .then(() => router.push("/"))
       .catch(error => {
         console.log(error)
         router.push("/")});
@@ -84,12 +79,7 @@ const EditArticle: React.FC = () => {
       method: "DELETE",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
-    }).then(function(response) {
-      if (!response.ok) {
-          throw Error(response.statusText);
-      }
-      return response;
-  })  .then(() => router.push("/"))
+    }).then(() => router.push("/"))
       .catch(error => {
         console.log(error)
         router.push("/my-contributions")});
