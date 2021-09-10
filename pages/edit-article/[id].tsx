@@ -67,10 +67,7 @@ const EditArticle: React.FC = () => {
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
     })
-      .then(() => router.push("/"))
-      .catch(error => {
-        console.log(error)
-        router.push("/")});
+    router.push("/")
   };
 
   const deleteHandler = async () => {
@@ -79,10 +76,8 @@ const EditArticle: React.FC = () => {
       method: "DELETE",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
-    }).then(() => router.push("/"))
-      .catch(error => {
-        console.log(error)
-        router.push("/my-contributions")});
+    })
+    router.push("/")
   };
 
   return (
