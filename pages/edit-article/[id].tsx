@@ -17,11 +17,7 @@ interface Article {
 
 
 const fetchArticle = async (id: string) => {
-  const response = await fetch("../api/handle-article", {
-    method: "POST",
-    body: JSON.stringify({id: id}),
-    headers: { "Content-Type": "application/json" },
-  })
+  const response = await fetch(`../api/handle-article/${id}`)
   const [article] = await response.json()
   return {
     _id: article._id.toString(),

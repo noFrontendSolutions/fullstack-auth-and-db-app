@@ -4,6 +4,7 @@ import {useEffect, useState} from "react"
 
 type Markdown = string;
 
+/*
 const fetchMarkdown = async (id: string)  => {
   let markdown: Markdown = ""
   const response = await fetch("../api/handle-article", {
@@ -14,6 +15,15 @@ const fetchMarkdown = async (id: string)  => {
   let [data] = await response.json()
   markdown = data.markdown
 return markdown
+}
+*/
+
+const fetchMarkdown = async (id: string) => {
+  let markdown: Markdown = ""
+  const response = await fetch(`../api/handle-article/${id}`)
+  const [data] = await response.json()
+  markdown = data.markdown
+  return markdown
 }
 
 const Article: React.FC<{ markdown: Markdown }> = () => {

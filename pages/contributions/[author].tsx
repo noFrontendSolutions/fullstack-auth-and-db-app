@@ -28,6 +28,8 @@ export const urlToName = (url: any) => {
   return url;
 };
 
+
+/*
 const fetchContributions = async (author: string) => {
   const response = await fetch("../api/handle-contributions", {
     method: "POST",
@@ -48,6 +50,24 @@ const fetchContributions = async (author: string) => {
   });
   return contributions;
 };
+*/
+
+const fetchContributions = async (author: string) => {
+  const response = await fetch(`../api/handle-contributions/${author}`)
+  let data = await response.json();
+  let contributions: ArticleCard[] = [];
+  contributions = data.map((article: ArticleCard) => {
+    return {
+      _id: article._id.toString(),
+      author: article.author,
+      title: article.title,
+      description: article.description,
+      date: article.date,
+      imageUrl: article.imageUrl,
+    };
+  });
+  return contributions;
+}
 
 
 const Contributions: React.FC = () => {
