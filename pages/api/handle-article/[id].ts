@@ -1,4 +1,4 @@
-import { findDBArticle } from "../database/db-related";
+import { findDBArticle } from "../../../database/db-related";
 
 const handleArticle = async (req: any, res: any) => {
       const articleId = req.query.id

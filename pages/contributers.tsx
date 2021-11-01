@@ -1,6 +1,6 @@
 import { GetServerSideProps, GetStaticProps } from "next";
 import Link from "next/link";
-import { connectToDB } from "./api/database/db-related";
+import { connectToDB } from "../database/db-related";
 
 interface Contributer {
   name: string

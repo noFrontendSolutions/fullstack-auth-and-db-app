@@ -1,4 +1,4 @@
-import { getAuthorsDBArticles } from "../database/db-related";
+import { getAuthorsDBArticles } from "../../../database/db-related";
 
 const handleContributions = async (req: any, res: any) => {
       const author = req.query.author

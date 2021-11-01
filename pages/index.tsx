@@ -1,7 +1,8 @@
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { connectToDB } from "./api/database/db-related";
+import { connectToDB } from "../database/db-related";
 import CardComponent from "../components/CardComponent"
+import {useQuery, useQueryClient} from "react-query"
 
 interface ArticleCard {
   _id: string
@@ -12,7 +13,7 @@ interface ArticleCard {
   imageUrl: string
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+const getAllArticles = async() => {
   const data = await connectToDB();
   const articles: ArticleCard[] = data.map((article): ArticleCard => {
     return {
@@ -24,6 +25,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
       imageUrl: article.imageUrl
     };
   });
+ // console.log(articles)
+  return articles
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  let articles = await getAllArticles()
+  //console.log(articles)
 
   return {
     props: { articles },
@@ -31,7 +39,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 const Home: React.FC<{articles: ArticleCard[]}> = (props) => {
-
+  //const queryClient = useQueryClient()
+  //const { data } = useQuery('articles', getAllArticles, { initialData: props.articles })
+  //console.log(data)
   return (
     <div className="min-h-full p-4 w-full max-w-xl xl:max-w-screen-2xl sm:grid sm:grid-cols-1 gap-8 self-center xl:grid xl:grid-cols-2">
       {props.articles.map((article) => (
